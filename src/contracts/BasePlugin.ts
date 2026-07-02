@@ -1,19 +1,13 @@
-import type { AppContext } from "../core/AppContext.ts";
+import type { AppContext } from '../core/AppContext.ts'
 
-export type PluginType =
-  | "exchange"
-  | "strategy"
-  | "notifier"
-  | "storage"
-  | "risk"
-  | "scheduler";
+export type PluginType = 'exchange' | 'strategy' | 'notifier' | 'storage' | 'risk' | 'scheduler'
 
 export interface BasePlugin {
-  name: string;
-  type: PluginType;
-  version: string;
+  name: string
+  type: PluginType
+  version: string
 
-  setup(app: AppContext): Promise<void> | void;
-  start?(app: AppContext): Promise<void> | void;
-  stop?(app: AppContext): Promise<void> | void;
+  setup(app: AppContext): Promise<void> | void
+  start?(app: AppContext): Promise<void> | void
+  stop?(app: AppContext): Promise<void> | void
 }

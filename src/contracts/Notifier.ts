@@ -1,3 +1,3 @@
 export interface Notifier {
-  send(message: string): Promise<void>;
+  send(message: string): Promise<void>
 }
