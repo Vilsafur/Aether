@@ -48,7 +48,7 @@ export class Cli {
 
     command.action(async (...values: unknown[]) => {
       const commanderCommand = values.at(-1) as Command
-      const argsValues = values.slice(0, -1).map(String)
+      const argsValues = values.slice(0, -2).map(String)
 
       await appCommand.run({
         args: {

@@ -1,0 +1,124 @@
+import { describe, expect, it, vi } from 'vitest'
+import { AppContext } from '../../../src/core/AppContext.js'
+import commandPlugin from '../../../src/plugins/commands/analyze-command.js'
+
+describe('command plugin', () => {
+  it('registers the analyze command', () => {
+    const app = new AppContext()
+
+    commandPlugin.setup(app)
+
+    expect(app.commands.list()).toEqual(['analyze'])
+
+    const command = app.commands.get('analyze')
+
+    expect(command.name).toBe('analyze <symbol>')
+    expect(command.description).toBe('Analyse un symbole avec une stratégie')
+    expect(command.options).toEqual([
+      {
+        flags: '-e, --exchange <name>',
+        description: 'Exchange à utiliser',
+        defaultValue: 'fake',
+      },
+      {
+        flags: '-s, --strategy <name>',
+        description: 'Stratégie à utiliser',
+        defaultValue: 'always-buy',
+      },
+      {
+        flags: '-n, --notifier <name>',
+        description: 'Notifier à utiliser',
+        defaultValue: 'console',
+      },
+    ])
+  })
+
+  it('throws when symbol is missing', async () => {
+    const app = new AppContext()
+
+    commandPlugin.setup(app)
+
+    const command = app.commands.get('analyze')
+
+    await expect(
+      command.run({
+        args: {
+          values: [],
+        },
+        options: {},
+      }),
+    ).rejects.toThrow('Le symbole est obligatoire.')
+  })
+
+  it('runs analyze flow with default services', async () => {
+    const app = new AppContext()
+
+    const getPrice = vi.fn(async () => 42_000)
+    const analyze = vi.fn(async () => ({
+      action: 'buy' as const,
+      confidence: 0.75,
+      reason: 'Signal de test',
+    }))
+    const send = vi.fn(async () => {})
+
+    app.exchanges.register('fake', { getPrice, getCandles: vi.fn(async () => []) })
+    app.strategies.register('always-buy', { analyze })
+    app.notifiers.register('console', { send })
+
+    commandPlugin.setup(app)
+
+    const command = app.commands.get('analyze')
+
+    await command.run({
+      args: {
+        values: ['BTC/USDT'],
+      },
+      options: {},
+    })
+
+    expect(getPrice).toHaveBeenCalledWith('BTC/USDT')
+    expect(analyze).toHaveBeenCalledWith({
+      symbol: 'BTC/USDT',
+      price: 42_000,
+    })
+    expect(send).toHaveBeenCalledWith('Décision pour BTC/USDT : BUY - Signal de test')
+  })
+
+  it('runs analyze flow with custom services', async () => {
+    const app = new AppContext()
+
+    const getPrice = vi.fn(async () => 2_500)
+    const analyze = vi.fn(async () => ({
+      action: 'hold' as const,
+      confidence: 0.5,
+      reason: 'Pas assez de signal',
+    }))
+    const send = vi.fn(async () => {})
+
+    app.exchanges.register('binance', { getPrice, getCandles: vi.fn(async () => []) })
+    app.strategies.register('rsi', { analyze })
+    app.notifiers.register('telegram', { send })
+
+    commandPlugin.setup(app)
+
+    const command = app.commands.get('analyze')
+
+    await command.run({
+      args: {
+        values: ['ETH/USDT'],
+      },
+      options: {
+        exchange: 'binance',
+        strategy: 'rsi',
+        notifier: 'telegram',
+      },
+    })
+
+    expect(getPrice).toHaveBeenCalledWith('ETH/USDT')
+    expect(analyze).toHaveBeenCalledWith({
+      symbol: 'ETH/USDT',
+      price: 2_500,
+    })
+    expect(send).toHaveBeenCalledWith('Décision pour ETH/USDT : HOLD - Pas assez de signal')
+  })
+})
