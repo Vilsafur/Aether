@@ -1,6 +1,7 @@
 {
   "name": "aether",
-  "version": "1.0.0",
+  "description": "Aether trading bot",
+  "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "dev": "tsx src/main.ts",
@@ -17,15 +18,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "type": "module",
   "engines": {
     "node": ">=24"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.2",
+    "@types/node": "^26.1.0",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"
+  },
+  "dependencies": {
+    "commander": "^15.0.0"
   }
 }
