@@ -3,27 +3,27 @@ import type { AppCommand } from '../contracts/Command.js'
 import type { AppContext } from './AppContext.js'
 
 export interface CliMetadata {
-  name: string;
-  version: string;
-  description?: string;
+  name: string
+  version: string
+  description?: string
 }
 
 export class Cli {
-  private readonly program = new Command();
+  private readonly program = new Command()
 
   constructor(
     private readonly app: AppContext,
-    private readonly metadata: CliMetadata
+    private readonly metadata: CliMetadata,
   ) {}
 
   configure(): void {
     this.program
       .name(this.metadata.name)
       .description(this.metadata.description ?? `${this.metadata.name} CLI`)
-      .version(this.metadata.version);
+      .version(this.metadata.version)
 
     for (const commandName of this.app.commands.list()) {
-      this.registerCommand(this.app.commands.get(commandName));
+      this.registerCommand(this.app.commands.get(commandName))
     }
   }
 
