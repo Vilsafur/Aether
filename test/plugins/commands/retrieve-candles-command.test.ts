@@ -27,13 +27,11 @@ describe('retrieveCandle', () => {
   it('runs but does not retrieve candles', async () => {
     const app = new AppContext()
 
-    const getPrice = vi.fn(async () => 42_000)
     const send = vi.fn(async () => {})
 
     const saveCandle = vi.fn(async () => {})
 
     app.exchanges.register('fake', {
-      getPrice,
       getCandles: vi.fn(async () => []),
       isPairSupported: vi.fn(async () => true),
       getSupportedPairs: vi.fn(async () => [Pair.fromString('BTC/USDT')]),
@@ -59,7 +57,6 @@ describe('retrieveCandle', () => {
   it('runs retrieve 2 candles', async () => {
     const app = new AppContext()
 
-    const getPrice = vi.fn(async () => 42_000)
     const send = vi.fn(async () => {})
 
     const saveCandle = vi.fn(async (_pair: Pair, _timestamp: number, candle: Candle) => {
@@ -91,7 +88,6 @@ describe('retrieveCandle', () => {
     ]
 
     app.exchanges.register('fake', {
-      getPrice,
       getCandles: vi.fn(async () => candles),
       isPairSupported: vi.fn(async () => true),
       getSupportedPairs: vi.fn(async () => [Pair.fromString('BTC/USDT')]),

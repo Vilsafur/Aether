@@ -55,7 +55,6 @@ describe('command plugin', () => {
   it('runs analyze flow with default services', async () => {
     const app = new AppContext()
 
-    const getPrice = vi.fn(async () => 42_000)
     const analyze = vi.fn(async () => ({
       action: 'buy' as const,
       confidence: 0.75,
@@ -64,7 +63,6 @@ describe('command plugin', () => {
     const send = vi.fn(async () => {})
 
     app.exchanges.register('fake', {
-      getPrice,
       getCandles: vi.fn(async () => []),
       isPairSupported: vi.fn(async () => true),
       getSupportedPairs: vi.fn(async () => [Pair.fromString('BTC/USDT')]),
@@ -98,7 +96,6 @@ describe('command plugin', () => {
   it('runs analyze flow with custom services', async () => {
     const app = new AppContext()
 
-    const getPrice = vi.fn(async () => 2_500)
     const analyze = vi.fn(async () => ({
       action: 'hold' as const,
       confidence: 0.5,
@@ -107,7 +104,6 @@ describe('command plugin', () => {
     const send = vi.fn(async () => {})
 
     app.exchanges.register('binance', {
-      getPrice,
       getCandles: vi.fn(async () => []),
       isPairSupported: vi.fn(async () => true),
       getSupportedPairs: vi.fn(async () => [Pair.fromString('ETH/USDT')]),

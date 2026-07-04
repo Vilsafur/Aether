@@ -5,12 +5,6 @@ import { Pair } from '../../core/Pair.js'
 class FakeExchange implements Exchange {
   private supportedPairs: Pair[] = [Pair.fromString('BTC/EUR'), Pair.fromString('ETH/EUR')]
 
-  async getPrice(pair: Pair): Promise<number> {
-    console.log(`Récupération du prix pour ${pair}`)
-
-    return 42_000
-  }
-
   async getCandles(pair: Pair): Promise<Candle[]> {
     console.log(`Récupération des bougies pour ${pair}`)
 

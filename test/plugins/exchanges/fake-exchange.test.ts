@@ -16,19 +16,6 @@ describe('fake exchange plugin', () => {
     expect(store).toBeDefined()
   })
 
-  it('should retrieve the price for a supported pair', async () => {
-    const app = new AppContext()
-
-    fakeExchangePlugin.setup(app)
-
-    const exchange = app.exchanges.get('fake')
-
-    expect(exchange).toBeDefined()
-
-    const price = await exchange.getPrice(new Pair('BTC', 'EUR'))
-    expect(price).toBe(42_000)
-  })
-
   it('should retrieve the candles for a supported pair', async () => {
     const app = new AppContext()
 
