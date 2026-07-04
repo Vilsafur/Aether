@@ -3,6 +3,7 @@ import { AppContext } from './core/AppContext.js'
 import { Cli } from './core/Cli.js'
 import { PluginManager } from './core/PluginManager.js'
 import analyzeCommandPlugin from './plugins/commands/analyze-command.js'
+import retrieveCandleCommandPlugin from './plugins/commands/retrieveCandle.js'
 import fakeExchangePlugin from './plugins/exchanges/fake-exchange.js'
 import consoleNotifierPlugin from './plugins/notifiers/console-notifier.js'
 import alwaysBuyPlugin from './plugins/strategies/always-buy.js'
@@ -14,6 +15,7 @@ await pluginManager.load(fakeExchangePlugin)
 await pluginManager.load(alwaysBuyPlugin)
 await pluginManager.load(consoleNotifierPlugin)
 await pluginManager.load(analyzeCommandPlugin)
+await pluginManager.load(retrieveCandleCommandPlugin)
 
 await pluginManager.startAll()
 

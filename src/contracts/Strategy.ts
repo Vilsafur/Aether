@@ -1,7 +1,7 @@
 export type StrategyAction = 'buy' | 'sell' | 'hold'
 
 export interface StrategyContext {
-  symbol: string
+  pair: string
   price: number
 }
 

@@ -12,8 +12,8 @@ describe('command plugin', () => {
 
     const command = app.commands.get('analyze')
 
-    expect(command.name).toBe('analyze <symbol>')
-    expect(command.description).toBe('Analyse un symbole avec une stratégie')
+    expect(command.name).toBe('analyze <pair>')
+    expect(command.description).toBe('Analyse un couple de devises avec une stratégie')
     expect(command.options).toEqual([
       {
         flags: '-e, --exchange <name>',
@@ -33,7 +33,7 @@ describe('command plugin', () => {
     ])
   })
 
-  it('throws when symbol is missing', async () => {
+  it('throws when pair is missing', async () => {
     const app = new AppContext()
 
     commandPlugin.setup(app)
@@ -47,7 +47,7 @@ describe('command plugin', () => {
         },
         options: {},
       }),
-    ).rejects.toThrow('Le symbole est obligatoire.')
+    ).rejects.toThrow('Le couple de devises est obligatoire.')
   })
 
   it('runs analyze flow with default services', async () => {
@@ -61,7 +61,12 @@ describe('command plugin', () => {
     }))
     const send = vi.fn(async () => {})
 
-    app.exchanges.register('fake', { getPrice, getCandles: vi.fn(async () => []) })
+    app.exchanges.register('fake', {
+      getPrice,
+      getCandles: vi.fn(async () => []),
+      isPairSupported: vi.fn(async () => true),
+      getSupportedPairs: vi.fn(async () => ['BTC/USDT']),
+    })
     app.strategies.register('always-buy', { analyze })
     app.notifiers.register('console', { send })
 
@@ -78,7 +83,7 @@ describe('command plugin', () => {
 
     expect(getPrice).toHaveBeenCalledWith('BTC/USDT')
     expect(analyze).toHaveBeenCalledWith({
-      symbol: 'BTC/USDT',
+      pair: 'BTC/USDT',
       price: 42_000,
     })
     expect(send).toHaveBeenCalledWith('Décision pour BTC/USDT : BUY - Signal de test')
@@ -95,7 +100,12 @@ describe('command plugin', () => {
     }))
     const send = vi.fn(async () => {})
 
-    app.exchanges.register('binance', { getPrice, getCandles: vi.fn(async () => []) })
+    app.exchanges.register('binance', {
+      getPrice,
+      getCandles: vi.fn(async () => []),
+      isPairSupported: vi.fn(async () => true),
+      getSupportedPairs: vi.fn(async () => ['ETH/USDT']),
+    })
     app.strategies.register('rsi', { analyze })
     app.notifiers.register('telegram', { send })
 
@@ -116,7 +126,7 @@ describe('command plugin', () => {
 
     expect(getPrice).toHaveBeenCalledWith('ETH/USDT')
     expect(analyze).toHaveBeenCalledWith({
-      symbol: 'ETH/USDT',
+      pair: 'ETH/USDT',
       price: 2_500,
     })
     expect(send).toHaveBeenCalledWith('Décision pour ETH/USDT : HOLD - Pas assez de signal')

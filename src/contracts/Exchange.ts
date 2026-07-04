@@ -8,7 +8,11 @@ export interface Candle {
 }
 
 export interface Exchange {
-  getPrice(symbol: string): Promise<number>
+  getPrice(pair: string): Promise<number>
 
-  getCandles(symbol: string, timeframe: string, limit: number): Promise<Candle[]>
+  getCandles(pair: string, timeframe: string, limit: number): Promise<Candle[]>
+
+  getSupportedPairs(): Promise<string[]>
+
+  isPairSupported(pair: string): Promise<boolean>
 }

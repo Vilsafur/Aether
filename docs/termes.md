@@ -1,0 +1,155 @@
+# Termes
+
+- Accumulation : phase durant laquelle des investisseurs achètent progressivement un actif avant une hausse attendue.
+- ADX (Average Directional Index) : indicateur qui mesure la force d'une tendance sans indiquer si elle est haussière ou baissière.
+- Airdrop : distribution gratuite de tokens à des utilisateurs.
+- Algo Trading (Algorithmic Trading) : trading automatisé réalisé par un programme informatique.
+- All Time High (ATH) : prix le plus élevé jamais atteint par un actif.
+- All Time Low (ATL) : prix le plus bas jamais atteint par un actif.
+- Altcoin : toute cryptomonnaie autre que Bitcoin.
+- Ask : meilleur prix de vente actuellement disponible.
+- ATR (Average True Range) : indicateur mesurant la volatilité moyenne d'un actif.
+- Average Cost (Cost Basis) : prix moyen d'acquisition d'une position.
+- Bear : investisseur anticipant une baisse des prix.
+- Bear Market : marché caractérisé par une tendance baissière durable.
+- Bear Trap : faux signal de cassure baissière suivi d'un retournement haussier.
+- Bid : meilleur prix d'achat actuellement proposé.
+- Bid-Ask Spread : différence entre le meilleur prix d'achat et le meilleur prix de vente.
+- Break Even : prix auquel une position ne génère ni gain ni perte.
+- Breakdown : cassure d'un support vers le bas.
+- Breakout : cassure d'une résistance ou d'un support avec accélération du prix.
+- Bull : investisseur anticipant une hausse des prix.
+- Bull Market : marché caractérisé par une tendance haussière durable.
+- Bull Trap : faux signal haussier suivi d'une baisse.
+- Candle (Candlestick) : représentation graphique des prix sur une période donnée.
+- Capitulation : ventes massives provoquées par la panique des investisseurs.
+- Candlestick Chart : graphique composé de chandeliers japonais.
+- Close : prix de clôture d'une bougie.
+- Consolidation : période durant laquelle le prix évolue dans une plage restreinte.
+- Confirmation : validation d'un signal technique par d'autres éléments.
+- Correction : baisse temporaire au sein d'une tendance haussière.
+- Cross Margin : mode de marge où plusieurs positions partagent le même capital.
+- DCA (Dollar Cost Averaging) : achat régulier d'un montant fixe afin de lisser le prix d'acquisition.
+- Dead Cat Bounce : rebond temporaire dans une tendance baissière.
+- DeFi (Decentralized Finance) : ensemble des services financiers fonctionnant sur une blockchain.
+- Delisting : retrait d'un actif d'une plateforme d'échange.
+- Demand Zone : zone où la pression acheteuse devient importante.
+- Depth Chart : graphique représentant les ordres d'achat et de vente du carnet d'ordres.
+- Descending Triangle : figure chartiste généralement baissière.
+- Divergence : différence d'évolution entre le prix et un indicateur.
+- Bullish Divergence : le prix baisse tandis que l'indicateur remonte.
+- Bearish Divergence : le prix monte tandis que l'indicateur baisse.
+- Distribution : phase durant laquelle les gros investisseurs vendent progressivement leurs positions.
+- Doji : chandelier dont l'ouverture est très proche de la clôture.
+- Dominance : part de la capitalisation d'une cryptomonnaie par rapport au marché total.
+- Double Bottom : figure de retournement haussière en forme de W.
+- Double Top : figure de retournement baissière en forme de M.
+- Downtrend : tendance baissière.
+- Dump : chute rapide du prix.
+- EMA (Exponential Moving Average) : moyenne mobile donnant plus d'importance aux prix récents.
+- Entry : prix auquel une position est ouverte.
+- Exit : prix auquel une position est fermée.
+- Fakeout : fausse cassure d'un niveau technique.
+- Fibonacci Retracement : niveaux de retracement utilisés pour identifier des zones de support ou de résistance.
+- Fill : exécution d'un ordre.
+- FOMO (Fear Of Missing Out) : peur de manquer une opportunité d'investissement.
+- FUD (Fear, Uncertainty and Doubt) : diffusion d'informations créant la peur et l'incertitude.
+- Funding Rate : paiement périodique entre acheteurs et vendeurs sur les contrats perpétuels.
+- Gap : espace entre deux niveaux de prix sans transactions intermédiaires.
+- Golden Cross : croisement haussier entre deux moyennes mobiles.
+- Death Cross : croisement baissier entre deux moyennes mobiles.
+- Grid Trading : stratégie consistant à placer plusieurs ordres à intervalles réguliers.
+- Hammer : chandelier indiquant un possible retournement haussier.
+- Hanging Man : chandelier annonçant un possible retournement baissier.
+- Hash Rate : puissance totale de calcul sécurisant une blockchain.
+- Hedge : position destinée à réduire le risque d'une autre position.
+- Higher High (HH) : sommet supérieur au précédent.
+- Higher Low (HL) : creux supérieur au précédent.
+- HODL : conserver une cryptomonnaie sur le long terme malgré les fluctuations.
+- Hold : conserver une position ouverte.
+- Ichimoku Cloud : système complet d'analyse technique basé sur plusieurs indicateurs.
+- Impulse : mouvement rapide dans le sens de la tendance.
+- Indicator : outil mathématique d'analyse des prix.
+- Isolated Margin : mode de marge où chaque position possède son propre capital.
+- KYC (Know Your Customer) : procédure de vérification d'identité imposée par les plateformes.
+- Leverage : utilisation d'un effet de levier afin d'augmenter l'exposition.
+- Liquidity : facilité avec laquelle un actif peut être acheté ou vendu.
+- Liquidation : fermeture automatique d'une position à effet de levier lorsque la marge devient insuffisante.
+- Liquidity Grab : mouvement visant à récupérer la liquidité située au-dessus ou au-dessous d'un niveau clé.
+- Long : position acheteuse profitant d'une hausse.
+- Lower High (LH) : sommet inférieur au précédent.
+- Lower Low (LL) : creux inférieur au précédent.
+- MACD (Moving Average Convergence Divergence) : indicateur de momentum basé sur deux moyennes mobiles exponentielles.
+- Maker : ordre ajoutant de la liquidité au carnet d'ordres.
+- Market Cap (Market Capitalization) : valeur totale d'une cryptomonnaie en circulation.
+- Market Maker : acteur fournissant de la liquidité au marché.
+- Market Order : ordre exécuté immédiatement au meilleur prix disponible.
+- Mean Reversion : stratégie basée sur un retour du prix vers sa moyenne.
+- Momentum : vitesse et puissance du mouvement des prix.
+- Moving Average (MA) : moyenne des prix calculée sur une période donnée.
+- Multi Time Frame Analysis : analyse réalisée sur plusieurs unités de temps.
+- Open : prix d'ouverture d'une bougie.
+- Open Interest : nombre total de contrats dérivés actuellement ouverts.
+- Order Book : carnet regroupant tous les ordres d'achat et de vente.
+- Order Flow : étude des flux d'ordres exécutés.
+- Oscillator : indicateur oscillant entre deux bornes.
+- Overbought : situation où un actif est considéré comme fortement acheté.
+- Oversold : situation où un actif est considéré comme fortement vendu.
+- Pair (Trading Pair) : couple de devises échangées, par exemple BTC/EUR.
+- Paper Trading : simulation de trading sans argent réel.
+- Parabolic Move : hausse extrêmement rapide et accélérée.
+- PnL (Profit and Loss) : résultat financier d'une position.
+- Position : quantité détenue sur un actif.
+- Position Size : taille d'une position.
+- Pullback : retour temporaire du prix après une cassure.
+- Pump : hausse rapide du prix.
+- Pump and Dump : manipulation consistant à faire monter artificiellement un prix avant de vendre massivement.
+- Range : période où le prix évolue entre un support et une résistance.
+- Realized PnL : gains ou pertes définitivement réalisés.
+- Resistance : niveau où les vendeurs deviennent majoritaires.
+- Retest : retour du prix sur un niveau précédemment cassé.
+- Retracement : correction temporaire au sein d'une tendance.
+- Reversal : retournement de tendance.
+- Risk/Reward Ratio (R:R) : rapport entre le risque pris et le gain potentiel.
+- RSI (Relative Strength Index) : indicateur mesurant la force du mouvement des prix.
+- Scalping : stratégie consistant à réaliser de nombreuses opérations très courtes.
+- Sell Wall : quantité importante d'ordres de vente à un même prix.
+- Short : position vendeuse profitant d'une baisse.
+- Short Covering : fermeture de positions vendeuses.
+- Short Squeeze : forte hausse provoquant la liquidation des positions vendeuses.
+- Sideways Market : marché évoluant sans tendance claire.
+- Slippage : différence entre le prix attendu et le prix réellement exécuté.
+- SMA (Simple Moving Average) : moyenne mobile simple.
+- Smart Money : investisseurs institutionnels ou expérimentés.
+- Spread : écart entre le meilleur prix acheteur et vendeur.
+- Staking : immobilisation de cryptomonnaies afin de participer à la sécurisation d'un réseau.
+- Stop Hunt : mouvement destiné à déclencher les ordres Stop Loss.
+- Stop Limit Order : ordre Stop déclenchant un ordre limite.
+- Stop Loss : ordre automatique limitant les pertes.
+- Support : niveau où les acheteurs deviennent majoritaires.
+- Supply Zone : zone où la pression vendeuse est importante.
+- Swing : mouvement significatif entre deux extrêmes.
+- Swing Trading : stratégie consistant à conserver une position plusieurs jours ou semaines.
+- Take Profit : ordre automatique clôturant une position avec bénéfice.
+- Taker : ordre consommant la liquidité du carnet d'ordres.
+- Tape Reading : analyse des transactions exécutées en temps réel.
+- Technical Analysis : analyse des graphiques afin d'anticiper les mouvements futurs.
+- Time Frame (TF) : unité de temps utilisée sur un graphique.
+- Token : actif numérique créé sur une blockchain existante.
+- Trend : direction générale du marché.
+- Trend Following : stratégie consistant à suivre la tendance dominante.
+- Trend Line : ligne reliant plusieurs sommets ou plusieurs creux.
+- Triangle Ascending : figure chartiste généralement haussière.
+- Triangle Descending : figure chartiste généralement baissière.
+- Triangle Symmetrical : figure chartiste pouvant déboucher sur une hausse ou une baisse.
+- Unrealized PnL : gains ou pertes non réalisés tant que la position reste ouverte.
+- Uptrend : tendance haussière.
+- Volume : quantité totale échangée sur une période.
+- Volume Profile : répartition des volumes selon les niveaux de prix.
+- Volatility : amplitude des variations de prix.
+- VWAP (Volume Weighted Average Price) : prix moyen pondéré par les volumes échangés.
+- Wash Trading : échanges artificiels destinés à gonfler les volumes.
+- Whale : investisseur possédant une très grande quantité d'un actif.
+- Wick : mèche haute ou basse d'un chandelier.
+- Wyckoff Method : méthode d'analyse basée sur les cycles d'accumulation et de distribution.
+- Yield Farming : fourniture de liquidités en échange de récompenses.

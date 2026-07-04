@@ -1,14 +1,14 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
 
 const plugin: BasePlugin = {
-  name: 'analyze-command',
+  name: 'retrieve-candle-command',
   type: 'scheduler',
   version: '1.0.0',
 
   setup(app) {
-    app.commands.register('analyze', {
-      name: 'analyze <pair>',
-      description: 'Analyse un couple de devises avec une stratégie',
+    app.commands.register('retrieve-candle', {
+      name: 'retrieve-candle <pair>',
+      description: 'Récupère les bougies pour un couple de devises donné',
 
       options: [
         {

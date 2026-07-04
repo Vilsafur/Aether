@@ -34,9 +34,9 @@ describe('Plugin system integration', () => {
     const strategy = app.strategies.get('always-buy')
     const notifier = app.notifiers.get('console')
 
-    const symbol = 'BTC/USDT'
-    const price = await exchange.getPrice(symbol)
-    const decision = await strategy.analyze({ symbol, price })
+    const pair = 'BTC/USDT'
+    const price = await exchange.getPrice(pair)
+    const decision = await strategy.analyze({ pair, price })
 
     await notifier.send(decision.action)
 
