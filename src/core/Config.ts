@@ -8,7 +8,7 @@ if (fs.existsSync(envPath)) {
 }
 
 export class Config {
-  private configMap: Record<string, string | undefined> = {
+  private readonly configMap: Record<string, string | undefined> = {
     defaultExchange: 'fake',
     defaultStrategy: 'always-buy',
     defaultNotifier: 'console',
