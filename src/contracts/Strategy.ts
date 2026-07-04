@@ -1,10 +1,11 @@
 import type { Pair } from '../core/Pair.js'
+import type { Candle } from './Exchange.js'
 
 export type StrategyAction = 'buy' | 'sell' | 'hold'
 
 export interface StrategyContext {
   pair: Pair
-  price: number
+  candles: Candle[]
 }
 
 export interface StrategyDecision {

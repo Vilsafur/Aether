@@ -39,8 +39,10 @@ const plugin: BasePlugin = {
         const exchangeName = String(context.options.exchange ?? app.config.get('defaultExchange'))
         const strategyName = String(context.options.strategy ?? app.config.get('defaultStrategy'))
         const notifierName = String(context.options.notifier ?? app.config.get('defaultNotifier'))
+        const storeName = String(context.options.store ?? app.config.get('defaultStore'))
 
         const exchange = app.exchanges.get(exchangeName)
+        const store = app.stores.get(storeName)
         const strategy = app.strategies.get(strategyName)
         const notifier = app.notifiers.get(notifierName)
 
@@ -49,9 +51,8 @@ const plugin: BasePlugin = {
             `Le couple de devises ${pair} n'est pas supporté par l'exchange ${exchangeName}.`,
           )
         }
-
-        const price = await exchange.getPrice(pair)
-        const decision = await strategy.analyze({ pair, price })
+        const candles = await store.getCandles(pair)
+        const decision = await strategy.analyze({ pair, candles })
 
         await notifier.send(
           `Décision pour ${pair} : ${decision.action.toUpperCase()} - ${decision.reason}`,
