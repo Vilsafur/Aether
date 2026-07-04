@@ -1,27 +1,59 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
 import type { Candle, Exchange } from '../../contracts/Exchange.js'
+import { Pair } from '../../core/Pair.js'
 
 class FakeExchange implements Exchange {
-  private supportedPairs: string[] = ['BTC/USD', 'ETH/USD', 'LTC/USD']
+  private supportedPairs: Pair[] = [Pair.fromString('BTC/EUR'), Pair.fromString('ETH/EUR')]
 
-  async getPrice(pair: string): Promise<number> {
+  async getPrice(pair: Pair): Promise<number> {
     console.log(`Récupération du prix pour ${pair}`)
 
     return 42_000
   }
 
-  async getCandles(pair: string, timeframe: string, limit: number): Promise<Candle[]> {
-    console.log(`Récupération de ${limit} bougies ${timeframe} pour ${pair}`)
+  async getCandles(pair: Pair): Promise<Candle[]> {
+    console.log(`Récupération des bougies pour ${pair}`)
 
-    return []
+    return [
+      {
+        timestamp: Date.now() - 4 * 60 * 60 * 1000,
+        open: 40000,
+        high: 41000,
+        low: 39000,
+        close: 40500,
+        volume: 100,
+        vwap: 40250,
+      },
+      {
+        timestamp: Date.now() - 3 * 60 * 60 * 1000,
+        open: 40500,
+        high: 41500,
+        low: 39500,
+        close: 41000,
+        volume: 150,
+        vwap: 40750,
+      },
+    ]
   }
 
-  async getSupportedPairs(): Promise<string[]> {
+  async getPairHistoricalName(pair: Pair): Promise<string> {
+    if (pair.equals(Pair.fromString('BTC/EUR'))) {
+      return 'XBTEUR'
+    }
+    throw new Error(`No historical name defined for pair ${pair}`)
+  }
+
+  async getSupportedPairs(): Promise<Pair[]> {
     return this.supportedPairs
   }
 
-  async isPairSupported(pair: string): Promise<boolean> {
-    return this.supportedPairs.includes(pair)
+  async isPairSupported(pair: Pair): Promise<boolean> {
+    for (const supportedPair of this.supportedPairs) {
+      if (pair.equals(supportedPair)) {
+        return true
+      }
+    }
+    return false
   }
 }
 

@@ -1,3 +1,5 @@
+import type { Pair } from '../core/Pair.js'
+
 export interface Candle {
   timestamp: number
   open: number
@@ -5,14 +7,17 @@ export interface Candle {
   low: number
   close: number
   volume: number
+  vwap: number
 }
 
 export interface Exchange {
-  getPrice(pair: string): Promise<number>
+  getPrice(pair: Pair): Promise<number>
 
-  getCandles(pair: string, timeframe: string, limit: number): Promise<Candle[]>
+  getCandles(pair: Pair): Promise<Candle[]>
 
-  getSupportedPairs(): Promise<string[]>
+  getPairHistoricalName(pair: Pair): Promise<string>
 
-  isPairSupported(pair: string): Promise<boolean>
+  getSupportedPairs(): Promise<Pair[]>
+
+  isPairSupported(pair: Pair): Promise<boolean>
 }

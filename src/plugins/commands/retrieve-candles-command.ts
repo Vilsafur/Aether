@@ -1,13 +1,14 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
+import { Pair } from '../../core/Pair.js'
 
 const plugin: BasePlugin = {
-  name: 'retrieve-candle-command',
+  name: 'retrieve-candles-command',
   type: 'scheduler',
   version: '1.0.0',
 
   setup(app) {
-    app.commands.register('retrieve-candle', {
-      name: 'retrieve-candle <pair>',
+    app.commands.register('retrieve-candles', {
+      name: 'retrieve-candles <pair>',
       description: 'Récupère les bougies pour un couple de devises donné',
 
       options: [
@@ -17,31 +18,35 @@ const plugin: BasePlugin = {
           defaultValue: 'fake',
         },
         {
-          flags: '-s, --strategy <name>',
-          description: 'Stratégie à utiliser',
-          defaultValue: 'always-buy',
-        },
-        {
           flags: '-n, --notifier <name>',
           description: 'Notifier à utiliser',
           defaultValue: 'console',
         },
+        {
+          flags: '-s, --storage <name>',
+          description: 'Stockage à utiliser',
+          defaultValue: 'memory',
+        },
       ],
 
       async run(context) {
-        const pair = context.args.values[0]
+        if (!context.args.values[0]) {
+          throw new Error('Le couple de devises est obligatoire.')
+        }
+
+        const pair = Pair.fromString(context.args.values[0] ?? '')
 
         if (!pair) {
           throw new Error('Le couple de devises est obligatoire.')
         }
 
         const exchangeName = String(context.options.exchange ?? 'fake')
-        const strategyName = String(context.options.strategy ?? 'always-buy')
         const notifierName = String(context.options.notifier ?? 'console')
+        const storageName = String(context.options.storage ?? 'memory')
 
         const exchange = app.exchanges.get(exchangeName)
-        const strategy = app.strategies.get(strategyName)
         const notifier = app.notifiers.get(notifierName)
+        const storage = app.stores.get(storageName)
 
         if (!exchange.isPairSupported(pair)) {
           throw new Error(
@@ -49,11 +54,21 @@ const plugin: BasePlugin = {
           )
         }
 
-        const price = await exchange.getPrice(pair)
-        const decision = await strategy.analyze({ pair, price })
+        const candles = await exchange.getCandles(pair)
+
+        if (candles.length === 0) {
+          await notifier.send(
+            `Aucune bougie trouvée pour le couple de devises ${pair} sur l'exchange ${exchangeName}.`,
+          )
+          return
+        }
+
+        for (const candle of candles) {
+          await storage.saveCandle(pair, candle.timestamp, candle)
+        }
 
         await notifier.send(
-          `Décision pour ${pair} : ${decision.action.toUpperCase()} - ${decision.reason}`,
+          `Récupération des bougies pour le couple de devises ${pair} sur l'exchange ${exchangeName} effectuée avec succès. Nombre de bougies récupérées : ${candles.length}.`,
         )
       },
     })

@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { AppContext } from '../../../src/core/AppContext.js'
+import { Pair } from '../../../src/core/Pair.js'
 import commandPlugin from '../../../src/plugins/commands/analyze-command.js'
 
 describe('command plugin', () => {
@@ -65,7 +66,8 @@ describe('command plugin', () => {
       getPrice,
       getCandles: vi.fn(async () => []),
       isPairSupported: vi.fn(async () => true),
-      getSupportedPairs: vi.fn(async () => ['BTC/USDT']),
+      getSupportedPairs: vi.fn(async () => [Pair.fromString('BTC/USDT')]),
+      getPairHistoricalName: vi.fn(async () => 'XBTUSD'),
     })
     app.strategies.register('always-buy', { analyze })
     app.notifiers.register('console', { send })
@@ -81,9 +83,9 @@ describe('command plugin', () => {
       options: {},
     })
 
-    expect(getPrice).toHaveBeenCalledWith('BTC/USDT')
+    expect(getPrice).toHaveBeenCalledWith(Pair.fromString('BTC/USDT'))
     expect(analyze).toHaveBeenCalledWith({
-      pair: 'BTC/USDT',
+      pair: Pair.fromString('BTC/USDT'),
       price: 42_000,
     })
     expect(send).toHaveBeenCalledWith('Décision pour BTC/USDT : BUY - Signal de test')
@@ -104,7 +106,8 @@ describe('command plugin', () => {
       getPrice,
       getCandles: vi.fn(async () => []),
       isPairSupported: vi.fn(async () => true),
-      getSupportedPairs: vi.fn(async () => ['ETH/USDT']),
+      getSupportedPairs: vi.fn(async () => [Pair.fromString('ETH/USDT')]),
+      getPairHistoricalName: vi.fn(async () => 'ETH-USDT'),
     })
     app.strategies.register('rsi', { analyze })
     app.notifiers.register('telegram', { send })
@@ -124,9 +127,9 @@ describe('command plugin', () => {
       },
     })
 
-    expect(getPrice).toHaveBeenCalledWith('ETH/USDT')
+    expect(getPrice).toHaveBeenCalledWith(Pair.fromString('ETH/USDT'))
     expect(analyze).toHaveBeenCalledWith({
-      pair: 'ETH/USDT',
+      pair: Pair.fromString('ETH/USDT'),
       price: 2_500,
     })
     expect(send).toHaveBeenCalledWith('Décision pour ETH/USDT : HOLD - Pas assez de signal')

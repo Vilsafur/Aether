@@ -1,7 +1,9 @@
+import type { Pair } from '../core/Pair.js'
+
 export type StrategyAction = 'buy' | 'sell' | 'hold'
 
 export interface StrategyContext {
-  pair: string
+  pair: Pair
   price: number
 }
 

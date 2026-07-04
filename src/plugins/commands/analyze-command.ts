@@ -1,4 +1,5 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
+import { Pair } from '../../core/Pair.js'
 
 const plugin: BasePlugin = {
   name: 'analyze-command',
@@ -29,11 +30,11 @@ const plugin: BasePlugin = {
       ],
 
       async run(context) {
-        const pair = context.args.values[0]
-
-        if (!pair) {
+        if (!context.args.values[0]) {
           throw new Error('Le couple de devises est obligatoire.')
         }
+
+        const pair = Pair.fromString(context.args.values[0] ?? '')
 
         const exchangeName = String(context.options.exchange ?? 'fake')
         const strategyName = String(context.options.strategy ?? 'always-buy')
