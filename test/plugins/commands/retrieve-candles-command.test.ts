@@ -40,7 +40,7 @@ describe('retrieveCandle', () => {
       getPairHistoricalName: vi.fn(async () => 'XBTUSD'),
     })
     app.notifiers.register('console', { send })
-    app.stores.register('memory', { saveCandle })
+    app.stores.register('memory', { saveCandle, getCandles: vi.fn(async () => []) })
 
     commandPlugin.setup(app)
 
@@ -62,7 +62,7 @@ describe('retrieveCandle', () => {
     const getPrice = vi.fn(async () => 42_000)
     const send = vi.fn(async () => {})
 
-    const saveCandle = vi.fn(async (pair: Pair, timestamp: number, candle: Candle) => {
+    const saveCandle = vi.fn(async (_pair: Pair, _timestamp: number, candle: Candle) => {
       memory.candles.push(candle)
     })
     const memory = {
@@ -98,7 +98,7 @@ describe('retrieveCandle', () => {
       getPairHistoricalName: vi.fn(async () => 'XBTUSD'),
     })
     app.notifiers.register('console', { send })
-    app.stores.register('memory', { saveCandle })
+    app.stores.register('memory', { saveCandle, getCandles: vi.fn(async () => memory.candles) })
 
     commandPlugin.setup(app)
 

@@ -15,17 +15,17 @@ const plugin: BasePlugin = {
         {
           flags: '-e, --exchange <name>',
           description: 'Exchange à utiliser',
-          defaultValue: 'fake',
+          defaultValue: app.config.get('defaultExchange'),
         },
         {
           flags: '-s, --strategy <name>',
           description: 'Stratégie à utiliser',
-          defaultValue: 'always-buy',
+          defaultValue: app.config.get('defaultStrategy'),
         },
         {
           flags: '-n, --notifier <name>',
           description: 'Notifier à utiliser',
-          defaultValue: 'console',
+          defaultValue: app.config.get('defaultNotifier'),
         },
       ],
 
@@ -36,9 +36,9 @@ const plugin: BasePlugin = {
 
         const pair = Pair.fromString(context.args.values[0] ?? '')
 
-        const exchangeName = String(context.options.exchange ?? 'fake')
-        const strategyName = String(context.options.strategy ?? 'always-buy')
-        const notifierName = String(context.options.notifier ?? 'console')
+        const exchangeName = String(context.options.exchange ?? app.config.get('defaultExchange'))
+        const strategyName = String(context.options.strategy ?? app.config.get('defaultStrategy'))
+        const notifierName = String(context.options.notifier ?? app.config.get('defaultNotifier'))
 
         const exchange = app.exchanges.get(exchangeName)
         const strategy = app.strategies.get(strategyName)

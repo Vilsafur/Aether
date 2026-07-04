@@ -9,7 +9,15 @@ class MemoryStore implements Store {
     if (!this.candles.has(pair.toString())) {
       this.candles.set(pair.toString(), new Map())
     }
-    this.candles.get(pair.toString())!.set(timestamp, candle)
+    this.candles.get(pair.toString())?.set(timestamp, candle)
+  }
+
+  async getCandles(pair: Pair): Promise<Candle[]> {
+    const pairCandles = this.candles.get(pair.toString())
+    if (!pairCandles) {
+      return []
+    }
+    return Array.from(pairCandles.values())
   }
 }
 

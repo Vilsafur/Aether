@@ -25,7 +25,7 @@ describe('fake exchange plugin', () => {
 
     expect(exchange).toBeDefined()
 
-    const price = await exchange!.getPrice(new Pair('BTC', 'EUR'))
+    const price = await exchange.getPrice(new Pair('BTC', 'EUR'))
     expect(price).toBe(42_000)
   })
 
@@ -38,7 +38,7 @@ describe('fake exchange plugin', () => {
 
     expect(exchange).toBeDefined()
 
-    const candles = await exchange!.getCandles(new Pair('BTC', 'EUR'))
+    const candles = await exchange.getCandles(new Pair('BTC', 'EUR'))
     expect(candles.length).toBe(2)
   })
 
@@ -51,7 +51,7 @@ describe('fake exchange plugin', () => {
 
     expect(exchange).toBeDefined()
 
-    const historicalName = await exchange!.getPairHistoricalName(new Pair('BTC', 'EUR'))
+    const historicalName = await exchange.getPairHistoricalName(new Pair('BTC', 'EUR'))
     expect(historicalName).toBe('XBTEUR')
   })
 
@@ -64,7 +64,7 @@ describe('fake exchange plugin', () => {
 
     expect(exchange).toBeDefined()
 
-    await expect(exchange!.getPairHistoricalName(new Pair('ETH', 'EUR'))).rejects.toThrow()
+    await expect(exchange.getPairHistoricalName(new Pair('ETH', 'EUR'))).rejects.toThrow()
   })
 
   it('should check if a pair is supported', async () => {
@@ -76,13 +76,13 @@ describe('fake exchange plugin', () => {
 
     expect(exchange).toBeDefined()
 
-    const isSupportedBTC = await exchange!.isPairSupported(new Pair('BTC', 'EUR'))
+    const isSupportedBTC = await exchange.isPairSupported(new Pair('BTC', 'EUR'))
     expect(isSupportedBTC).toBe(true)
 
-    const isSupportedETH = await exchange!.isPairSupported(new Pair('ETH', 'EUR'))
+    const isSupportedETH = await exchange.isPairSupported(new Pair('ETH', 'EUR'))
     expect(isSupportedETH).toBe(true)
 
-    const isSupportedLTC = await exchange!.isPairSupported(new Pair('LTC', 'EUR'))
+    const isSupportedLTC = await exchange.isPairSupported(new Pair('LTC', 'EUR'))
     expect(isSupportedLTC).toBe(false)
   })
 
@@ -95,7 +95,7 @@ describe('fake exchange plugin', () => {
 
     expect(exchange).toBeDefined()
 
-    const supportedPairs = await exchange!.getSupportedPairs()
+    const supportedPairs = await exchange.getSupportedPairs()
     expect(supportedPairs.map((pair) => pair.toString())).toEqual(['BTC/EUR', 'ETH/EUR'])
   })
 })

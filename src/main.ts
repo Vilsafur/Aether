@@ -1,4 +1,3 @@
-import packageJson from '../package.json' with { type: 'json' }
 import { AppContext } from './core/AppContext.js'
 import { Cli } from './core/Cli.js'
 import { PluginManager } from './core/PluginManager.js'
@@ -22,9 +21,9 @@ await pluginManager.load(retrieveCandleCommandPlugin)
 await pluginManager.startAll()
 
 const cli = new Cli(app, {
-  name: packageJson.name,
-  version: packageJson.version,
-  description: packageJson.description,
+  name: app.config.get('app.name'),
+  version: app.config.get('app.version'),
+  description: app.config.get('app.description'),
 })
 cli.configure()
 
