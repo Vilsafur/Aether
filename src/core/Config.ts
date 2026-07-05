@@ -13,6 +13,7 @@ export class Config {
     defaultStrategy: 'always-buy',
     defaultNotifier: 'console',
     defaultStore: 'memory',
+    SQLITE_DB_PATH: './.data/db.sqlite3',
   }
 
   constructor() {

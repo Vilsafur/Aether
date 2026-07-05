@@ -15,7 +15,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "check": "npm run typecheck && npm run biome:check && npm run test:coverage"
+    "check": "npm run typecheck && npm run biome:check:fix && npm run test:coverage"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.2",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^26.1.0",
     "@vitest/coverage-v8": "^4.1.9",
     "tsx": "^4.22.4",
@@ -33,6 +34,7 @@
     "vitest": "^4.1.9"
   },
   "dependencies": {
+    "better-sqlite3": "^12.11.1",
     "commander": "^15.0.0",
     "dotenv": "^17.4.2"
   }

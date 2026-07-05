@@ -6,6 +6,7 @@ import retrieveCandleCommandPlugin from './plugins/commands/retrieve-candles-com
 import fakeExchangePlugin from './plugins/exchanges/fake-exchange.js'
 import consoleNotifierPlugin from './plugins/notifiers/console-notifier.js'
 import memoryStoragePlugin from './plugins/store/memory-store.js'
+import sqliteStoragePlugin from './plugins/store/sqlite-store.js'
 import alwaysBuyPlugin from './plugins/strategies/always-buy.js'
 
 const app = new AppContext()
@@ -15,6 +16,7 @@ await pluginManager.load(fakeExchangePlugin)
 await pluginManager.load(alwaysBuyPlugin)
 await pluginManager.load(consoleNotifierPlugin)
 await pluginManager.load(memoryStoragePlugin)
+await pluginManager.load(sqliteStoragePlugin)
 await pluginManager.load(analyzeCommandPlugin)
 await pluginManager.load(retrieveCandleCommandPlugin)
 
