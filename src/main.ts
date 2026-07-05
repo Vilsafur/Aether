@@ -5,7 +5,7 @@ import analyzeCommandPlugin from './plugins/commands/analyze-command.js'
 import retrieveCandleCommandPlugin from './plugins/commands/retrieve-candles-command.js'
 import fakeExchangePlugin from './plugins/exchanges/fake-exchange.js'
 import consoleNotifierPlugin from './plugins/notifiers/console-notifier.js'
-import memoryStoragePlugin from './plugins/store/memory.js'
+import memoryStoragePlugin from './plugins/store/memory-store.js'
 import alwaysBuyPlugin from './plugins/strategies/always-buy.js'
 
 const app = new AppContext()

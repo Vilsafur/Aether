@@ -4,7 +4,7 @@ import { Pair } from '../../src/core/Pair.js'
 import { PluginManager } from '../../src/core/PluginManager.js'
 import fakeExchangePlugin from '../../src/plugins/exchanges/fake-exchange.js'
 import consoleNotifierPlugin from '../../src/plugins/notifiers/console-notifier.js'
-import memoryStorePlugin from '../../src/plugins/store/memory.js'
+import memoryStorePlugin from '../../src/plugins/store/memory-store.js'
 import alwaysBuyPlugin from '../../src/plugins/strategies/always-buy.js'
 
 describe('Plugin system integration', () => {

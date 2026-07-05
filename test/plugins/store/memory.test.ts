@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { Candle } from '../../../src/contracts/Exchange.js'
 import { AppContext } from '../../../src/core/AppContext.js'
 import { Pair } from '../../../src/core/Pair.js'
-import memoryPlugin from '../../../src/plugins/store/memory.js'
+import memoryPlugin from '../../../src/plugins/store/memory-store.js'
 
 describe('memory storage plugin', () => {
   it('registers the memory storage', () => {
