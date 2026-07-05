@@ -9,10 +9,10 @@ if (fs.existsSync(envPath)) {
 
 export class Config {
   private readonly configMap: Record<string, string | undefined> = {
-    defaultExchange: 'fake',
-    defaultStrategy: 'always-buy',
-    defaultNotifier: 'console',
-    defaultStore: 'memory',
+    'plugin.exchange': 'fake',
+    'plugin.notifier': 'console',
+    'plugin.strategy': 'always-buy',
+    'plugin.store': 'memory',
     'sqlite.path': './.data/db.sqlite3',
   }
 

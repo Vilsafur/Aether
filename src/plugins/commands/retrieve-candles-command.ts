@@ -15,17 +15,17 @@ const plugin: BasePlugin = {
         {
           flags: '-e, --exchange <name>',
           description: 'Exchange à utiliser',
-          defaultValue: app.config.get('defaultExchange'),
+          defaultValue: app.config.get('plugin.exchange'),
         },
         {
           flags: '-n, --notifier <name>',
           description: 'Notifier à utiliser',
-          defaultValue: app.config.get('defaultNotifier'),
+          defaultValue: app.config.get('plugin.notifier'),
         },
         {
           flags: '-s, --storage <name>',
           description: 'Stockage à utiliser',
-          defaultValue: app.config.get('defaultStore'),
+          defaultValue: app.config.get('plugin.store'),
         },
       ],
 
@@ -40,9 +40,9 @@ const plugin: BasePlugin = {
           throw new Error('Le couple de devises est obligatoire.')
         }
 
-        const exchangeName = String(context.options.exchange ?? app.config.get('defaultExchange'))
-        const notifierName = String(context.options.notifier ?? app.config.get('defaultNotifier'))
-        const storageName = String(context.options.storage ?? app.config.get('defaultStore'))
+        const exchangeName = String(context.options.exchange ?? app.config.get('plugin.exchange'))
+        const notifierName = String(context.options.notifier ?? app.config.get('plugin.notifier'))
+        const storageName = String(context.options.storage ?? app.config.get('plugin.store'))
 
         const exchange = app.exchanges.get(exchangeName)
         const notifier = app.notifiers.get(notifierName)

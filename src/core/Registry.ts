@@ -28,4 +28,8 @@ export class Registry<T> {
   list(): string[] {
     return [...this.items.keys()]
   }
+
+  all(): T[] {
+    return [...this.items.values()]
+  }
 }

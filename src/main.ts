@@ -10,7 +10,18 @@ import sqliteStoragePlugin from './plugins/store/sqlite-store.js'
 import alwaysBuyPlugin from './plugins/strategies/always-buy.js'
 
 const app = new AppContext()
-const pluginManager = new PluginManager(app)
+const pluginManager = new PluginManager(app, {
+  single: {
+    storage: app.config.get('plugin.store'),
+    exchange: app.config.get('plugin.exchange'),
+    notifier: app.config.get('plugin.notifier'),
+  },
+  enabled: [
+    'strategy:always-buy',
+    'scheduler:analyze-command',
+    'scheduler:retrieve-candles-command',
+  ],
+})
 
 await pluginManager.load(fakeExchangePlugin)
 await pluginManager.load(alwaysBuyPlugin)

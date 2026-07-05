@@ -15,17 +15,17 @@ const plugin: BasePlugin = {
         {
           flags: '-e, --exchange <name>',
           description: 'Exchange à utiliser',
-          defaultValue: app.config.get('defaultExchange'),
+          defaultValue: app.config.get('plugin.exchange'),
         },
         {
           flags: '-s, --strategy <name>',
           description: 'Stratégie à utiliser',
-          defaultValue: app.config.get('defaultStrategy'),
+          defaultValue: app.config.get('plugin.strategy'),
         },
         {
           flags: '-n, --notifier <name>',
           description: 'Notifier à utiliser',
-          defaultValue: app.config.get('defaultNotifier'),
+          defaultValue: app.config.get('plugin.notifier'),
         },
       ],
 
@@ -36,10 +36,10 @@ const plugin: BasePlugin = {
 
         const pair = Pair.fromString(context.args.values[0] ?? '')
 
-        const exchangeName = String(context.options.exchange ?? app.config.get('defaultExchange'))
-        const strategyName = String(context.options.strategy ?? app.config.get('defaultStrategy'))
-        const notifierName = String(context.options.notifier ?? app.config.get('defaultNotifier'))
-        const storeName = String(context.options.store ?? app.config.get('defaultStore'))
+        const exchangeName = String(context.options.exchange ?? app.config.get('plugin.exchange'))
+        const strategyName = String(context.options.strategy ?? app.config.get('plugin.strategy'))
+        const notifierName = String(context.options.notifier ?? app.config.get('plugin.notifier'))
+        const storeName = String(context.options.store ?? app.config.get('plugin.store'))
 
         const exchange = app.exchanges.get(exchangeName)
         const store = app.stores.get(storeName)
