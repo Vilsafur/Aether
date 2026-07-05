@@ -13,7 +13,7 @@ export class Config {
     defaultStrategy: 'always-buy',
     defaultNotifier: 'console',
     defaultStore: 'memory',
-    SQLITE_DB_PATH: './.data/db.sqlite3',
+    'sqlite.path': './.data/db.sqlite3',
   }
 
   constructor() {
@@ -27,8 +27,9 @@ export class Config {
   }
 
   get(key: string): string {
-    if (process.env[key] !== undefined) {
-      return process.env[key]
+    const envKey = key.toUpperCase().replace(/\./g, '_')
+    if (process.env[envKey] !== undefined) {
+      return process.env[envKey]
     }
 
     if (this.configMap[key] === undefined) {

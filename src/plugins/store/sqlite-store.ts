@@ -113,7 +113,7 @@ const plugin: BasePlugin = {
   version: '1.0.0',
 
   setup(app) {
-    const dbPath = app.config.get('SQLITE_DB_PATH')
+    const dbPath = app.config.get('sqlite.path')
     app.stores.register('sqlite', new SQLiteStore(dbPath))
   },
 
