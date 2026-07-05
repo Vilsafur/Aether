@@ -5,14 +5,15 @@ import analyzeCommandPlugin from './plugins/commands/analyze-command.js'
 import retrieveCandleCommandPlugin from './plugins/commands/retrieve-candles-command.js'
 import fakeExchangePlugin from './plugins/exchanges/fake-exchange.js'
 import consoleNotifierPlugin from './plugins/notifiers/console-notifier.js'
-import memoryStoragePlugin from './plugins/store/memory-store.js'
-import sqliteStoragePlugin from './plugins/store/sqlite-store.js'
+import memoryStorePlugin from './plugins/store/memory-store.js'
+import sqliteStorePlugin from './plugins/store/sqlite-store.js'
 import alwaysBuyPlugin from './plugins/strategies/always-buy.js'
+import krakenExchangePlugin from './plugins/exchanges/kraken-exchange.js'
 
 const app = new AppContext()
 const pluginManager = new PluginManager(app, {
   single: {
-    storage: app.config.get('plugin.store'),
+    store: app.config.get('plugin.store'),
     exchange: app.config.get('plugin.exchange'),
     notifier: app.config.get('plugin.notifier'),
   },
@@ -24,10 +25,11 @@ const pluginManager = new PluginManager(app, {
 })
 
 await pluginManager.load(fakeExchangePlugin)
+await pluginManager.load(krakenExchangePlugin)
 await pluginManager.load(alwaysBuyPlugin)
 await pluginManager.load(consoleNotifierPlugin)
-await pluginManager.load(memoryStoragePlugin)
-await pluginManager.load(sqliteStoragePlugin)
+await pluginManager.load(memoryStorePlugin)
+await pluginManager.load(sqliteStorePlugin)
 await pluginManager.load(analyzeCommandPlugin)
 await pluginManager.load(retrieveCandleCommandPlugin)
 

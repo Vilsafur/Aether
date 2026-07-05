@@ -12,5 +12,5 @@ export class AppContext {
   readonly strategies = new Registry<Strategy>('strategy')
   readonly notifiers = new Registry<Notifier>('notifier')
   readonly commands = new Registry<AppCommand>('command')
-  readonly stores = new Registry<Store>('storage')
+  readonly stores = new Registry<Store>('store')
 }

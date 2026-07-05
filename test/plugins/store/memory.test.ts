@@ -4,8 +4,8 @@ import { AppContext } from '../../../src/core/AppContext.js'
 import { Pair } from '../../../src/core/Pair.js'
 import memoryPlugin from '../../../src/plugins/store/memory-store.js'
 
-describe('memory storage plugin', () => {
-  it('registers the memory storage', () => {
+describe('memory store plugin', () => {
+  it('registers the memory store', () => {
     const app = new AppContext()
 
     memoryPlugin.setup(app)

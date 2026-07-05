@@ -11,7 +11,7 @@ export interface Candle {
 }
 
 export interface Exchange {
-  getCandles(pair: Pair): Promise<Candle[]>
+  getCandles(pair: Pair, interval: number): Promise<Candle[]>
 
   getPairHistoricalName(pair: Pair): Promise<string>
 

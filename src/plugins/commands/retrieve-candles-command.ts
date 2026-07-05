@@ -23,7 +23,7 @@ const plugin: BasePlugin = {
           defaultValue: app.config.get('plugin.notifier'),
         },
         {
-          flags: '-s, --storage <name>',
+          flags: '-s, --store <name>',
           description: 'Stockage à utiliser',
           defaultValue: app.config.get('plugin.store'),
         },
@@ -42,11 +42,11 @@ const plugin: BasePlugin = {
 
         const exchangeName = String(context.options.exchange ?? app.config.get('plugin.exchange'))
         const notifierName = String(context.options.notifier ?? app.config.get('plugin.notifier'))
-        const storageName = String(context.options.storage ?? app.config.get('plugin.store'))
+        const storeName = String(context.options.store ?? app.config.get('plugin.store'))
 
         const exchange = app.exchanges.get(exchangeName)
         const notifier = app.notifiers.get(notifierName)
-        const storage = app.stores.get(storageName)
+        const store = app.stores.get(storeName)
 
         if (!exchange.isPairSupported(pair)) {
           throw new Error(
@@ -54,7 +54,7 @@ const plugin: BasePlugin = {
           )
         }
 
-        const candles = await exchange.getCandles(pair)
+        const candles = await exchange.getCandles(pair, 1) // Récupère les bougies avec un intervalle de 1 minute
 
         if (candles.length === 0) {
           await notifier.send(
@@ -64,7 +64,7 @@ const plugin: BasePlugin = {
         }
 
         for (const candle of candles) {
-          await storage.saveCandle(pair, candle.timestamp, candle)
+          await store.saveCandle(pair, candle.timestamp, candle)
         }
 
         await notifier.send(

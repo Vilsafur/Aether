@@ -29,12 +29,7 @@ export class Pair {
     this.historicalName = historicalName
   }
 
-  getHistoricalName(): string {
-    if (!this.historicalName) {
-      throw new Error(
-        `No historical name defined for pair ${this.firstCurrency}/${this.secondCurrency}`,
-      )
-    }
+  getHistoricalName(): string | undefined {
     return this.historicalName
   }
 

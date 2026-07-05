@@ -8,8 +8,6 @@ export interface PluginActivationConfig {
   enabled: PluginKey[]
 }
 
-const singlePluginTypes = new Set<PluginType>(['storage'])
-
 export class PluginManager {
   private readonly plugins = new Map<string, BasePlugin>()
 
@@ -36,7 +34,7 @@ export class PluginManager {
   }
 
   private shouldLoad(plugin: BasePlugin, key: PluginKey): boolean {
-    if (singlePluginTypes.has(plugin.type)) {
+    if (this.activationConfig.single?.[plugin.type]) {
       return this.activationConfig.single[plugin.type] === plugin.name
     }
 

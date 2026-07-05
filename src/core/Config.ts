@@ -14,6 +14,7 @@ export class Config {
     'plugin.strategy': 'always-buy',
     'plugin.store': 'memory',
     'sqlite.path': './.data/db.sqlite3',
+    'kraken.baseUrl': 'https://api.kraken.com',
   }
 
   constructor() {

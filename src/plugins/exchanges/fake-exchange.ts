@@ -11,9 +11,9 @@ class FakeExchange implements Exchange {
     this.app = app
   }
 
-  async getCandles(pair: Pair): Promise<Candle[]> {
+  async getCandles(pair: Pair, _interval: number): Promise<Candle[]> {
     
-    const notifierName = String(this.app.config.get('defaultNotifier'))
+    const notifierName = String(this.app.config.get('plugin.notifier'))
     const notifier = this.app.notifiers.get(notifierName)
     await notifier.send(
           `Récupération des bougies pour ${pair}`,
@@ -63,7 +63,7 @@ class FakeExchange implements Exchange {
 }
 
 const plugin: BasePlugin = {
-  name: 'fake-exchange',
+  name: 'fake',
   type: 'exchange',
   version: '1.0.0',
 

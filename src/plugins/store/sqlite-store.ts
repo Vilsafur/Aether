@@ -109,7 +109,7 @@ class SQLiteStore implements Store {
 
 const plugin: BasePlugin = {
   name: 'sqlite',
-  type: 'storage',
+  type: 'store',
   version: '1.0.0',
 
   setup(app) {

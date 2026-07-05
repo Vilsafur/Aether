@@ -23,7 +23,7 @@ class MemoryStore implements Store {
 
 const plugin: BasePlugin = {
   name: 'memory',
-  type: 'storage',
+  type: 'store',
   version: '1.0.0',
 
   setup(app) {
