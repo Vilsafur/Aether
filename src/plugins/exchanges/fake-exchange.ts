@@ -1,12 +1,23 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
 import type { Candle, Exchange } from '../../contracts/Exchange.js'
+import { AppContext } from '../../core/AppContext.js'
 import { Pair } from '../../core/Pair.js'
 
 class FakeExchange implements Exchange {
   private supportedPairs: Pair[] = [Pair.fromString('BTC/EUR'), Pair.fromString('ETH/EUR')]
+  private app: AppContext
+
+  constructor(app: AppContext) {
+    this.app = app
+  }
 
   async getCandles(pair: Pair): Promise<Candle[]> {
-    console.log(`Récupération des bougies pour ${pair}`)
+    
+    const notifierName = String(this.app.config.get('defaultNotifier'))
+    const notifier = this.app.notifiers.get(notifierName)
+    await notifier.send(
+          `Récupération des bougies pour ${pair}`,
+        )
 
     return [
       {
@@ -57,7 +68,7 @@ const plugin: BasePlugin = {
   version: '1.0.0',
 
   setup(app) {
-    app.exchanges.register('fake', new FakeExchange())
+    app.exchanges.register('fake', new FakeExchange(app))
   },
 }
 
