@@ -51,9 +51,6 @@ class KrakenExchange implements Exchange {
       throw new Error(`Kraken API error: ${result.error.join(', ')}`)
     }
 
-    console.log(`Kraken OHLC data for ${pair} (${historicalName}):`)
-    console.log(Object.keys(result.result))
-
     const ohlcData = result.result[historicalName] as unknown as number[][]
 
     return ohlcData.map((data) => ({
