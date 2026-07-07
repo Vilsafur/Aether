@@ -3,6 +3,7 @@ import { Cli } from './core/Cli.js'
 import { PluginManager } from './core/PluginManager.js'
 import analyzeCommandPlugin from './plugins/commands/analyze-command.js'
 import retrieveCandleCommandPlugin from './plugins/commands/retrieve-candles-command.js'
+import retrieveFeeCommandPlugin from './plugins/commands/retrieve-fees-command.js'
 import fakeExchangePlugin from './plugins/exchanges/fake-exchange.js'
 import krakenExchangePlugin from './plugins/exchanges/kraken-exchange.js'
 import consoleNotifierPlugin from './plugins/notifiers/console-notifier.js'
@@ -21,6 +22,7 @@ const pluginManager = new PluginManager(app, {
     'strategy:always-buy',
     'scheduler:analyze-command',
     'scheduler:retrieve-candles-command',
+    'scheduler:retrieve-fees-command',
   ],
 })
 
@@ -32,6 +34,7 @@ await pluginManager.load(memoryStorePlugin)
 await pluginManager.load(sqliteStorePlugin)
 await pluginManager.load(analyzeCommandPlugin)
 await pluginManager.load(retrieveCandleCommandPlugin)
+await pluginManager.load(retrieveFeeCommandPlugin)
 
 await pluginManager.startAll()
 

@@ -1,3 +1,13 @@
 {
-  "cSpell.words": ["sqlite", "SQLITE", "vwap"]
+  "cSpell.words": [
+    "maxfee",
+    "minfee",
+    "nextfee",
+    "nextvolume",
+    "OHLC",
+    "sqlite",
+    "SQLITE",
+    "tiervolume",
+    "vwap"
+  ]
 }
