@@ -26,6 +26,8 @@ describe('retrieveCandle', () => {
 
   it('runs but does not retrieve candles', async () => {
     const app = new AppContext()
+    process.env['PLUGIN_EXCHANGE'] = 'fake'
+    process.env['PLUGIN_STORE'] = 'memory'
 
     const send = vi.fn(async () => {})
 
@@ -36,6 +38,7 @@ describe('retrieveCandle', () => {
       isPairSupported: vi.fn(async () => true),
       getSupportedPairs: vi.fn(async () => [Pair.fromString('BTC/USDT')]),
       getPairHistoricalName: vi.fn(async () => 'XBTUSD'),
+      getFee: vi.fn(async () => 0.4),
     })
     app.notifiers.register('console', { send })
     app.stores.register('memory', { saveCandle, getCandles: vi.fn(async () => []) })
@@ -56,6 +59,8 @@ describe('retrieveCandle', () => {
 
   it('runs retrieve 2 candles', async () => {
     const app = new AppContext()
+    process.env['PLUGIN_EXCHANGE'] = 'fake'
+    process.env['PLUGIN_STORE'] = 'memory'
 
     const send = vi.fn(async () => {})
 
@@ -92,6 +97,7 @@ describe('retrieveCandle', () => {
       isPairSupported: vi.fn(async () => true),
       getSupportedPairs: vi.fn(async () => [Pair.fromString('BTC/USDT')]),
       getPairHistoricalName: vi.fn(async () => 'XBTUSD'),
+      getFee: vi.fn(async () => 0.4),
     })
     app.notifiers.register('console', { send })
     app.stores.register('memory', { saveCandle, getCandles: vi.fn(async () => memory.candles) })

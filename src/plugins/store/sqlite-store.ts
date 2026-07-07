@@ -1,5 +1,5 @@
 import { mkdirSync, readdirSync, readFileSync, statSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { dirname, join } from 'node:path'
 import Database, { type Database as DatabaseType } from 'better-sqlite3'
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
 import type { Candle } from '../../contracts/Exchange.js'

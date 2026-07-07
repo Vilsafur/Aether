@@ -18,9 +18,9 @@ describe('Pair', () => {
     expect(pair.getHistoricalName()).toBe('XBTEUR')
   })
 
-  it('should throw an error if historical name is not set', () => {
+  it('should return undefined if historical name is not set', () => {
     const pair = Pair.fromString('BTC/EUR')
-    expect(() => pair.getHistoricalName()).toThrow('No historical name defined for pair BTC/EUR')
+    expect(pair.getHistoricalName()).toEqual(undefined)
   })
 
   it('should compare pairs correctly', () => {

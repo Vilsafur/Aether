@@ -1,6 +1,6 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
 import type { Candle, Exchange } from '../../contracts/Exchange.js'
-import { AppContext } from '../../core/AppContext.js'
+import type { AppContext } from '../../core/AppContext.js'
 import { Pair } from '../../core/Pair.js'
 
 class FakeExchange implements Exchange {
@@ -12,12 +12,9 @@ class FakeExchange implements Exchange {
   }
 
   async getCandles(pair: Pair, _interval: number): Promise<Candle[]> {
-    
     const notifierName = String(this.app.config.get('plugin.notifier'))
     const notifier = this.app.notifiers.get(notifierName)
-    await notifier.send(
-          `Récupération des bougies pour ${pair}`,
-        )
+    await notifier.send(`Récupération des bougies pour ${pair}`)
 
     return [
       {
@@ -59,6 +56,16 @@ class FakeExchange implements Exchange {
       }
     }
     return false
+  }
+
+  async getFee(pair: Pair): Promise<number> {
+    if (pair.equals(Pair.fromString('BTC/EUR'))) {
+      return 0.001
+    }
+    if (pair.equals(Pair.fromString('ETH/EUR'))) {
+      return 0.002
+    }
+    throw new Error(`No fee defined for pair ${pair}`)
   }
 }
 

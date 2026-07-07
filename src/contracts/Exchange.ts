@@ -18,4 +18,6 @@ export interface Exchange {
   getSupportedPairs(): Promise<Pair[]>
 
   isPairSupported(pair: Pair): Promise<boolean>
+
+  getFee(pair: Pair): Promise<number>
 }

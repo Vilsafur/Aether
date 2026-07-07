@@ -36,9 +36,7 @@ export class KrakenClient {
 
     const body = new URLSearchParams({
       nonce,
-      ...Object.fromEntries(
-        Object.entries(payload).map(([key, value]) => [key, String(value)]),
-      ),
+      ...Object.fromEntries(Object.entries(payload).map(([key, value]) => [key, String(value)])),
     })
 
     const apiSign = this.sign(path, nonce, body.toString())
@@ -66,10 +64,7 @@ export class KrakenClient {
       .update(nonce + postData)
       .digest()
 
-    const message = Buffer.concat([
-      Buffer.from(path),
-      hash,
-    ])
+    const message = Buffer.concat([Buffer.from(path), hash])
 
     return crypto
       .createHmac('sha512', Buffer.from(this.apiSecret, 'base64'))

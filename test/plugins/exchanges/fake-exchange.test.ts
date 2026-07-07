@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { AppContext } from '../../../src/core/AppContext.js'
 import { Pair } from '../../../src/core/Pair.js'
 import fakeExchangePlugin from '../../../src/plugins/exchanges/fake-exchange.js'
+import consoleNotifierPlugin from '../../../src/plugins/notifiers/console-notifier.js'
 
 describe('fake exchange plugin', () => {
   it('should register the fake exchange', () => {
@@ -20,12 +21,13 @@ describe('fake exchange plugin', () => {
     const app = new AppContext()
 
     fakeExchangePlugin.setup(app)
+    consoleNotifierPlugin.setup(app)
 
     const exchange = app.exchanges.get('fake')
 
     expect(exchange).toBeDefined()
 
-    const candles = await exchange.getCandles(new Pair('BTC', 'EUR'))
+    const candles = await exchange.getCandles(new Pair('BTC', 'EUR'), 60)
     expect(candles.length).toBe(2)
   })
 

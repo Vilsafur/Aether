@@ -10,7 +10,20 @@ import alwaysBuyPlugin from '../../src/plugins/strategies/always-buy.js'
 describe('Plugin system integration', () => {
   it('loads exchange, strategy and notifier plugins', async () => {
     const app = new AppContext()
-    const manager = new PluginManager(app)
+    process.env['PLUGIN_EXCHANGE'] = 'fake'
+    process.env['PLUGIN_STORE'] = 'memory'
+    const manager = new PluginManager(app, {
+      single: {
+        store: app.config.get('plugin.store'),
+        exchange: app.config.get('plugin.exchange'),
+        notifier: app.config.get('plugin.notifier'),
+      },
+      enabled: [
+        'strategy:always-buy',
+        'scheduler:analyze-command',
+        'scheduler:retrieve-candles-command',
+      ],
+    })
 
     await manager.load(fakeExchangePlugin)
     await manager.load(alwaysBuyPlugin)
@@ -25,7 +38,20 @@ describe('Plugin system integration', () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
 
     const app = new AppContext()
-    const manager = new PluginManager(app)
+    process.env['PLUGIN_EXCHANGE'] = 'fake'
+    process.env['PLUGIN_STORE'] = 'memory'
+    const manager = new PluginManager(app, {
+      single: {
+        store: app.config.get('plugin.store'),
+        exchange: app.config.get('plugin.exchange'),
+        notifier: app.config.get('plugin.notifier'),
+      },
+      enabled: [
+        'strategy:always-buy',
+        'scheduler:analyze-command',
+        'scheduler:retrieve-candles-command',
+      ],
+    })
 
     await manager.load(fakeExchangePlugin)
     await manager.load(alwaysBuyPlugin)

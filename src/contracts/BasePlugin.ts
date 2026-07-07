@@ -1,6 +1,13 @@
 import type { AppContext } from '../core/AppContext.ts'
 
-export type PluginType = 'exchange' | 'strategy' | 'notifier' | 'store' | 'risk' | 'scheduler' | 'command'
+export type PluginType =
+  | 'exchange'
+  | 'strategy'
+  | 'notifier'
+  | 'store'
+  | 'risk'
+  | 'scheduler'
+  | 'command'
 
 export interface BasePlugin {
   name: string

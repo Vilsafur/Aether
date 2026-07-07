@@ -4,11 +4,11 @@ import { PluginManager } from './core/PluginManager.js'
 import analyzeCommandPlugin from './plugins/commands/analyze-command.js'
 import retrieveCandleCommandPlugin from './plugins/commands/retrieve-candles-command.js'
 import fakeExchangePlugin from './plugins/exchanges/fake-exchange.js'
+import krakenExchangePlugin from './plugins/exchanges/kraken-exchange.js'
 import consoleNotifierPlugin from './plugins/notifiers/console-notifier.js'
 import memoryStorePlugin from './plugins/store/memory-store.js'
 import sqliteStorePlugin from './plugins/store/sqlite-store.js'
 import alwaysBuyPlugin from './plugins/strategies/always-buy.js'
-import krakenExchangePlugin from './plugins/exchanges/kraken-exchange.js'
 
 const app = new AppContext()
 const pluginManager = new PluginManager(app, {

@@ -1,12 +1,23 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { BasePlugin } from '../../src/contracts/BasePlugin.js'
 import { AppContext } from '../../src/core/AppContext.js'
-import { PluginManager } from '../../src/core/PluginManager.js'
+import { type PluginActivationConfig, PluginManager } from '../../src/core/PluginManager.js'
 
 describe('PluginManager', () => {
   it('loads a plugin', async () => {
     const app = new AppContext()
-    const manager = new PluginManager(app)
+    const manager = new PluginManager(app, {
+      single: {
+        store: app.config.get('plugin.store'),
+        exchange: app.config.get('plugin.exchange'),
+      },
+      enabled: [
+        'strategy:always-buy',
+        'scheduler:analyze-command',
+        'scheduler:retrieve-candles-command',
+        'notifier:test',
+      ],
+    })
 
     const plugin: BasePlugin = {
       name: 'test',
@@ -23,7 +34,18 @@ describe('PluginManager', () => {
 
   it('throws when loading the same plugin twice', async () => {
     const app = new AppContext()
-    const manager = new PluginManager(app)
+    const manager = new PluginManager(app, {
+      single: {
+        store: app.config.get('plugin.store'),
+        exchange: app.config.get('plugin.exchange'),
+      },
+      enabled: [
+        'strategy:always-buy',
+        'scheduler:analyze-command',
+        'scheduler:retrieve-candles-command',
+        'notifier:test',
+      ],
+    })
 
     const plugin: BasePlugin = {
       name: 'test',
@@ -39,14 +61,26 @@ describe('PluginManager', () => {
 
   it('starts all plugins', async () => {
     const app = new AppContext()
-    const manager = new PluginManager(app)
+    const activationConfig: PluginActivationConfig = {
+      single: {
+        store: app.config.get('plugin.store'),
+        exchange: app.config.get('plugin.exchange'),
+      },
+      enabled: [
+        'strategy:always-buy',
+        'scheduler:analyze-command',
+        'scheduler:retrieve-candles-command',
+        'notifier:test',
+      ],
+    }
+    const manager = new PluginManager(app, activationConfig)
 
     const plugin: BasePlugin = {
       name: 'test',
       type: 'notifier',
       version: '1.0.0',
-      setup: vi.fn(),
-      start: vi.fn(),
+      setup: vi.fn((app) => {}),
+      start: vi.fn((app) => {}),
     }
 
     await manager.load(plugin)
@@ -57,7 +91,19 @@ describe('PluginManager', () => {
 
   it('stops plugins in reverse order', async () => {
     const app = new AppContext()
-    const manager = new PluginManager(app)
+    const manager = new PluginManager(app, {
+      single: {
+        store: app.config.get('plugin.store'),
+        exchange: app.config.get('plugin.exchange'),
+      },
+      enabled: [
+        'strategy:always-buy',
+        'scheduler:analyze-command',
+        'scheduler:retrieve-candles-command',
+        'notifier:a',
+        'notifier:b',
+      ],
+    })
 
     const calls: string[] = []
 

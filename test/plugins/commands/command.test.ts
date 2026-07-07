@@ -7,6 +7,8 @@ import commandPlugin from '../../../src/plugins/commands/analyze-command.js'
 describe('command plugin', () => {
   it('registers the analyze command', () => {
     const app = new AppContext()
+    process.env['PLUGIN_EXCHANGE'] = 'fake'
+    process.env['PLUGIN_STORE'] = 'memory'
 
     commandPlugin.setup(app)
 
@@ -37,6 +39,8 @@ describe('command plugin', () => {
 
   it('throws when pair is missing', async () => {
     const app = new AppContext()
+    process.env['PLUGIN_EXCHANGE'] = 'fake'
+    process.env['PLUGIN_STORE'] = 'memory'
 
     commandPlugin.setup(app)
 
@@ -54,6 +58,8 @@ describe('command plugin', () => {
 
   it('runs analyze flow with default services', async () => {
     const app = new AppContext()
+    process.env['PLUGIN_EXCHANGE'] = 'fake'
+    process.env['PLUGIN_STORE'] = 'memory'
 
     const analyze = vi.fn(async () => ({
       action: 'buy' as const,
@@ -67,6 +73,7 @@ describe('command plugin', () => {
       isPairSupported: vi.fn(async () => true),
       getSupportedPairs: vi.fn(async () => [Pair.fromString('BTC/USDT')]),
       getPairHistoricalName: vi.fn(async () => 'XBTUSD'),
+      getFee: vi.fn(async () => 0.4),
     })
     app.strategies.register('always-buy', { analyze })
     app.notifiers.register('console', { send })
@@ -95,6 +102,8 @@ describe('command plugin', () => {
 
   it('runs analyze flow with custom services', async () => {
     const app = new AppContext()
+    process.env['PLUGIN_EXCHANGE'] = 'fake'
+    process.env['PLUGIN_STORE'] = 'memory'
 
     const analyze = vi.fn(async () => ({
       action: 'hold' as const,
@@ -103,11 +112,12 @@ describe('command plugin', () => {
     }))
     const send = vi.fn(async () => {})
 
-    app.exchanges.register('binance', {
+    app.exchanges.register('fake', {
       getCandles: vi.fn(async () => []),
       isPairSupported: vi.fn(async () => true),
       getSupportedPairs: vi.fn(async () => [Pair.fromString('ETH/USDT')]),
       getPairHistoricalName: vi.fn(async () => 'ETH-USDT'),
+      getFee: vi.fn(async () => 0.4),
     })
     app.strategies.register('rsi', { analyze })
     app.notifiers.register('telegram', { send })
@@ -125,7 +135,7 @@ describe('command plugin', () => {
         values: ['ETH/USDT'],
       },
       options: {
-        exchange: 'binance',
+        exchange: 'fake',
         strategy: 'rsi',
         notifier: 'telegram',
       },
