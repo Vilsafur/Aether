@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { Candle } from '../../../src/contracts/Exchange.js'
+import type { Candle, Interval } from '../../../src/contracts/Exchange.js'
 import { AppContext } from '../../../src/core/AppContext.js'
 import { Pair } from '../../../src/core/Pair.js'
 import commandPlugin from '../../../src/plugins/commands/analyze-command.js'
@@ -79,7 +79,15 @@ describe('command plugin', () => {
     app.notifiers.register('console', { send })
     app.stores.register('memory', {
       getCandles: vi.fn(async () => []),
-      saveCandle: vi.fn(async (_pair: Pair, _timestamp: number, _candle: Candle) => {}),
+      saveCandle: vi.fn(
+        async (
+          _exchange: string,
+          _pair: Pair,
+          _timestamp: number,
+          interval: Interval,
+          _candle: Candle,
+        ) => {},
+      ),
     })
 
     commandPlugin.setup(app)
@@ -123,7 +131,15 @@ describe('command plugin', () => {
     app.notifiers.register('telegram', { send })
     app.stores.register('memory', {
       getCandles: vi.fn(async () => []),
-      saveCandle: vi.fn(async (_pair: Pair, _timestamp: number, _candle: Candle) => {}),
+      saveCandle: vi.fn(
+        async (
+          _exchange: string,
+          _pair: Pair,
+          _timestamp: number,
+          _interval: Interval,
+          _candle: Candle,
+        ) => {},
+      ),
     })
 
     commandPlugin.setup(app)

@@ -38,9 +38,9 @@ describe('memory store plugin', () => {
       vwap: 40250,
     }
 
-    await store.saveCandle(pair, timestamp, candle)
+    await store.saveCandle('fake', pair, timestamp, '1m', candle)
 
     // Verify that the candle was saved correctly
-    expect(await store.getCandles(pair)).toEqual([candle])
+    expect(await store.getCandles(pair, '1m')).toEqual([candle])
   })
 })

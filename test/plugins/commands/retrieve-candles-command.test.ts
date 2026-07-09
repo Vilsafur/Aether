@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { Candle } from '../../../src/contracts/Exchange.js'
+import type { Candle, Interval } from '../../../src/contracts/Exchange.js'
 import { AppContext } from '../../../src/core/AppContext.js'
 import { Pair } from '../../../src/core/Pair.js'
 import commandPlugin from '../../../src/plugins/commands/retrieve-candles-command.js'
@@ -64,9 +64,17 @@ describe('retrieveCandle', () => {
 
     const send = vi.fn(async () => {})
 
-    const saveCandle = vi.fn(async (_pair: Pair, _timestamp: number, candle: Candle) => {
-      memory.candles.push(candle)
-    })
+    const saveCandle = vi.fn(
+      async (
+        _exchange: string,
+        _pair: Pair,
+        _timestamp: number,
+        _interval: Interval,
+        candle: Candle,
+      ) => {
+        memory.candles.push(candle)
+      },
+    )
     const memory = {
       candles: [] as Candle[],
     }

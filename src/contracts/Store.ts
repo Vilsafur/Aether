@@ -1,7 +1,13 @@
 import type { Pair } from '../core/Pair.js'
-import type { Candle } from './Exchange.js'
+import type { Candle, Interval } from './Exchange.js'
 
 export interface Store {
-  saveCandle(pair: Pair, timestamp: number, candle: Candle): Promise<void>
-  getCandles(pair: Pair): Promise<Candle[]>
+  saveCandle(
+    exchange: string,
+    pair: Pair,
+    timestamp: number,
+    interval: Interval,
+    candle: Candle,
+  ): Promise<void>
+  getCandles(pair: Pair, interval: Interval, since?: Date): Promise<Candle[]>
 }

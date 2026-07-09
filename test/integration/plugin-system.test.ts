@@ -63,8 +63,8 @@ describe('Plugin system integration', () => {
     const store = app.stores.get('memory')
 
     const pair = Pair.fromString('BTC/USDT')
-    const candles = await store.getCandles(pair)
-    const decision = await strategy.analyze({ pair, candles })
+    const candles = await store.getCandles(pair, '1m')
+    const decision = await strategy.analyze({ pair })
 
     await notifier.send(decision.action)
 

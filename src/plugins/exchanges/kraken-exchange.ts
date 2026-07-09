@@ -33,10 +33,26 @@ type KrakenTradeVolumeFee = {
   tiervolume: string
 }
 
+interface AssetPairs {
+  [internalName: string]: {
+    altname: string
+    wsname: string
+    base: string
+    quote: string
+  }
+}
+
+interface AssetsResponse {
+  error: string[]
+  result: AssetPairs
+}
+
 class KrakenExchange implements Exchange {
   private supportedPairs: Pair[] = [Pair.fromString('BTC/EUR'), Pair.fromString('ETH/EUR')]
   private app: AppContext
   private client: KrakenClient
+
+  private assetPairs?: AssetPairs
 
   constructor(app: AppContext) {
     this.app = app
@@ -69,7 +85,7 @@ class KrakenExchange implements Exchange {
     const ohlcData = result.result[historicalName] as unknown as number[][]
 
     return ohlcData.map((data) => ({
-      timestamp: data[0]!,
+      timestamp: data[0]! * 1000,
       open: data[1]!,
       high: data[2]!,
       low: data[3]!,
@@ -80,8 +96,9 @@ class KrakenExchange implements Exchange {
   }
 
   async getPairHistoricalName(pair: Pair): Promise<string> {
-    if (pair.equals(Pair.fromString('BTC/EUR'))) {
-      return 'XXBTZEUR'
+    const internalName = await this.getInternalNameByWsname(pair.toString())
+    if (internalName) {
+      return internalName
     }
     throw new Error(`No historical name defined for pair ${pair}`)
   }
@@ -124,6 +141,29 @@ class KrakenExchange implements Exchange {
     }
 
     return parseFloat(feeByPair.fee) * 100
+  }
+
+  private async getAssetPairs(): Promise<AssetPairs> {
+    if (this.assetPairs === undefined) {
+      const response = await this.client.publicRequest<AssetsResponse>(
+        '/0/public/AssetPairs?aclass_base=currency',
+      )
+
+      if (response.error.length !== 0) {
+        throw new Error(response.error.join(','))
+      }
+
+      this.assetPairs = response.result
+    }
+
+    return this.assetPairs
+  }
+
+  private async getInternalNameByWsname(wsname: string): Promise<string | undefined> {
+    const assetPairs = await this.getAssetPairs()
+    const entry = Object.entries(assetPairs).find(([, pair]) => pair.wsname === wsname)
+
+    return entry?.[0]
   }
 }
 

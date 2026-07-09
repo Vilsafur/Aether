@@ -1,8 +1,8 @@
-import { mkdirSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { mkdirSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import Database, { type Database as DatabaseType } from 'better-sqlite3'
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
-import type { Candle } from '../../contracts/Exchange.js'
+import type { Candle, Interval } from '../../contracts/Exchange.js'
 import type { Store } from '../../contracts/Store.js'
 import type { Pair } from '../../core/Pair.js'
 
@@ -74,12 +74,20 @@ class SQLiteStore implements Store {
     this.db.close()
   }
 
-  async saveCandle(pair: Pair, timestamp: number, candle: Candle): Promise<void> {
+  async saveCandle(
+    exchange: string,
+    pair: Pair,
+    timestamp: number,
+    interval: Interval,
+    candle: Candle,
+  ): Promise<void> {
     const stmt = this.db.prepare(
-      `INSERT OR IGNORE INTO candles (pair, timestamp, open, high, low, close, volume, vwap) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT OR IGNORE INTO candles (exchange, pair, interval, timestamp, open, high, low, close, volume, vwap) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     stmt.run(
+      exchange,
       pair.toString(),
+      interval,
       timestamp,
       candle.open,
       candle.high,
@@ -90,9 +98,24 @@ class SQLiteStore implements Store {
     )
   }
 
-  async getCandles(pair: Pair): Promise<Candle[]> {
-    const stmt = this.db.prepare(`SELECT * FROM candles WHERE pair = ? ORDER BY timestamp ASC`)
-    const candleRows = stmt.all(pair.toString()) as CandleRow[]
+  async getCandles(pair: Pair, interval: Interval, since?: Date): Promise<Candle[]> {
+    let query = `
+      SELECT *
+      FROM candles
+      WHERE pair = ?
+      AND interval = ?
+    `
+
+    const params: unknown[] = [pair.toString(), interval]
+
+    if (since !== undefined) {
+      query += ` AND timestamp >= ?`
+      params.push(since.getTime())
+    }
+
+    query += ` ORDER BY timestamp ASC`
+
+    const candleRows = this.db.prepare(query).all(...params) as CandleRow[]
 
     return candleRows.map((row) => ({
       pair: pair,

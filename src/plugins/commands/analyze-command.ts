@@ -51,8 +51,8 @@ const plugin: BasePlugin = {
             `Le couple de devises ${pair} n'est pas supporté par l'exchange ${exchangeName}.`,
           )
         }
-        const candles = await store.getCandles(pair)
-        const decision = await strategy.analyze({ pair, candles })
+        const candles = await store.getCandles(pair, '1m')
+        const decision = await strategy.analyze({ pair })
 
         await notifier.send(
           `Décision pour ${pair} : ${decision.action.toUpperCase()} - ${decision.reason}`,

@@ -5,7 +5,6 @@ export type StrategyAction = 'buy' | 'sell' | 'hold'
 
 export interface StrategyContext {
   pair: Pair
-  candles: Candle[]
 }
 
 export interface StrategyDecision {

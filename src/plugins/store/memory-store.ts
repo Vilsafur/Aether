@@ -1,11 +1,17 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
-import type { Candle } from '../../contracts/Exchange.js'
+import type { Candle, Interval } from '../../contracts/Exchange.js'
 import type { Store } from '../../contracts/Store.js'
 import type { Pair } from '../../core/Pair.js'
 
 class MemoryStore implements Store {
   candles: Map<string, Map<number, Candle>> = new Map()
-  async saveCandle(pair: Pair, timestamp: number, candle: Candle): Promise<void> {
+  async saveCandle(
+    _exchange: string,
+    pair: Pair,
+    timestamp: number,
+    _interval: Interval,
+    candle: Candle,
+  ): Promise<void> {
     if (!this.candles.has(pair.toString())) {
       this.candles.set(pair.toString(), new Map())
     }

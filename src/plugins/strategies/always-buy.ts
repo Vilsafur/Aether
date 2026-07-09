@@ -6,7 +6,7 @@ class AlwaysBuyStrategy implements Strategy {
     return {
       action: 'buy',
       confidence: 0.75,
-      reason: `Stratégie de test : achat systématique sur ${context.pair} à ${context.candles[context.candles.length - 1]?.vwap}`,
+      reason: `Stratégie de test : achat systématique sur ${context.pair}`,
     }
   }
 }
