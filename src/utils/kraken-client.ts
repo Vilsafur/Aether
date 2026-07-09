@@ -1,6 +1,24 @@
 import crypto from 'node:crypto'
+import type { Interval } from '../contracts/Exchange.js'
 
 type KrakenPrivatePayload = Record<string, string | number | boolean>
+
+export const getIntervalInMin = (interval: Interval): number => {
+  switch (interval) {
+    case '1m':
+      return 1
+    case '5m':
+      return 5
+    case '15m':
+      return 15
+    case '1h':
+      return 60
+    case '4h':
+      return 240
+    case '1d':
+      return 1440
+  }
+}
 
 export class KrakenClient {
   constructor(

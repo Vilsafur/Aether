@@ -84,7 +84,7 @@ describe('command plugin', () => {
           _exchange: string,
           _pair: Pair,
           _timestamp: number,
-          interval: Interval,
+          _interval: Interval,
           _candle: Candle,
         ) => {},
       ),
@@ -103,7 +103,6 @@ describe('command plugin', () => {
 
     expect(analyze).toHaveBeenCalledWith({
       pair: Pair.fromString('BTC/USDT'),
-      candles: [],
     })
     expect(send).toHaveBeenCalledWith('Décision pour BTC/USDT : BUY - Signal de test')
   })
@@ -159,7 +158,6 @@ describe('command plugin', () => {
 
     expect(analyze).toHaveBeenCalledWith({
       pair: Pair.fromString('ETH/USDT'),
-      candles: [],
     })
     expect(send).toHaveBeenCalledWith('Décision pour ETH/USDT : HOLD - Pas assez de signal')
   })

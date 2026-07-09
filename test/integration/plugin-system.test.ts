@@ -72,7 +72,7 @@ describe('Plugin system integration', () => {
     expect(decision).toEqual({
       action: 'buy',
       confidence: 0.75,
-      reason: 'Stratégie de test : achat systématique sur BTC/USDT à undefined',
+      reason: 'Stratégie de test : achat systématique sur BTC/USDT',
     })
 
     expect(consoleSpy).toHaveBeenCalledWith('[NOTIFICATION] buy')

@@ -1,6 +1,7 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
-import { getIntervalInMin, type Interval } from '../../contracts/Exchange.js'
+import type { Interval } from '../../contracts/Exchange.js'
 import { Pair } from '../../core/Pair.js'
+import { getIntervalInMin } from '../../utils/kraken-client.js'
 
 const plugin: BasePlugin = {
   name: 'retrieve-candles-command',

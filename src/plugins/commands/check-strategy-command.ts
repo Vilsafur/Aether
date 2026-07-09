@@ -1,8 +1,9 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
-import { type Exchange, getIntervalInMin, type Interval } from '../../contracts/Exchange.js'
+import type { Exchange, Interval } from '../../contracts/Exchange.js'
 import type { Notifier } from '../../contracts/Notifier.js'
 import type { Store } from '../../contracts/Store.js'
 import { Pair } from '../../core/Pair.js'
+import { getIntervalInMin } from '../../utils/kraken-client.js'
 
 const retrieveCandles = async (
   exchange: Exchange,
