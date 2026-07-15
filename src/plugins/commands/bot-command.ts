@@ -48,7 +48,7 @@ const plugin: BasePlugin = {
           )
 
           const mfinish = (new Date()).getTime()
-          const diff = (2400000 - (mfinish - mstart))
+          const diff = (3600000 - (mfinish - mstart))
 
           await notifier.send(
             `Attente de ${diff/1000}s avant la prochaine exécution`,
