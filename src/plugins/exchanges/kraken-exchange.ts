@@ -110,8 +110,6 @@ class KrakenExchange implements Exchange {
   async isPairSupported(pair: Pair): Promise<boolean> {
     const assetPairs = await this.getAssetPairs()
     const entry = Object.entries(assetPairs).find(([, p]) => p.wsname === pair.toString())
-
-    console.log(entry)
     
     return entry !== undefined
   }
