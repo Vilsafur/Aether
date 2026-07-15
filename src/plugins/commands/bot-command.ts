@@ -1,5 +1,6 @@
 import type { BasePlugin } from '../../contracts/BasePlugin.js'
 import { Pair } from '../../core/Pair.js'
+import { retrieveCandles } from '../../utils/candles.js'
 import { sleep } from '../../utils/time.js'
 
 const plugin: BasePlugin = {
@@ -41,6 +42,10 @@ const plugin: BasePlugin = {
 
         while (looping) {
           const mstart = (new Date()).getTime()
+          await retrieveCandles(exchange, notifier, store, pair, '1d', exchangeName)
+          await retrieveCandles(exchange, notifier, store, pair, '4h', exchangeName)
+          await retrieveCandles(exchange, notifier, store, pair, '1h', exchangeName)
+
           const decision = await strategy.analyze({ pair })
 
           await notifier.send(

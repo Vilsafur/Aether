@@ -5,6 +5,7 @@ import type { BasePlugin } from '../../contracts/BasePlugin.js'
 import type { Candle, Interval } from '../../contracts/Exchange.js'
 import type { Store } from '../../contracts/Store.js'
 import type { Pair } from '../../core/Pair.js'
+import { Notifier } from '../../contracts/Notifier.js'
 
 interface CandleRow {
   pair: string
@@ -20,7 +21,7 @@ interface CandleRow {
 class SQLiteStore implements Store {
   private readonly db: DatabaseType
 
-  constructor(dbPath: string) {
+  constructor(dbPath: string, private readonly notifier: Notifier) {
     mkdirSync(dirname(dbPath), { recursive: true })
     this.db = new Database(dbPath)
 
@@ -31,6 +32,7 @@ class SQLiteStore implements Store {
   }
 
   private runMigrations(): void {
+    this.notifier.send('Création de la table des migrations')
     this.db.exec(`
       CREATE TABLE IF NOT EXISTS _migrations (
         name TEXT PRIMARY KEY,
@@ -55,11 +57,12 @@ class SQLiteStore implements Store {
     const transaction = this.db.transaction(() => {
       for (const file of migrationFiles) {
         const alreadyApplied = hasMigration.get(file)
-
+        
         if (alreadyApplied) {
           continue
         }
-
+        
+        this.notifier.send(`Migration: ${file}`)
         const sql = readFileSync(join(migrationsDir, file), 'utf8')
 
         this.db.exec(sql)
@@ -139,7 +142,7 @@ const plugin: BasePlugin = {
     const dbPath = app.config.get('sqlite.path')
     const notifier = app.notifiers.get('console')
     notifier.send(`Ouverture de la base de données : ${dbPath}`)
-    app.stores.register('sqlite', new SQLiteStore(dbPath))
+    app.stores.register('sqlite', new SQLiteStore(dbPath, notifier))
   },
 
   stop(app) {
