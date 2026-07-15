@@ -12,8 +12,11 @@ export const retrieveCandles = async (
   pair: Pair,
   interval: Interval,
   exchangeName: string,
-) => {
-  const candles = await exchange.getCandles(pair, getIntervalInMin(interval)) // Récupère les bougies avec un intervalle de 1 minute
+): Promise<void> => {
+  const intervalInMinutes = getIntervalInMin(interval)
+  const intervalInMilliseconds = intervalInMinutes * 60_000
+
+  const candles = await exchange.getCandles(pair, intervalInMinutes)
 
   if (candles.length === 0) {
     await notifier.send(
@@ -22,11 +25,36 @@ export const retrieveCandles = async (
     return
   }
 
-  for (const candle of candles) {
-    await store.saveCandle(exchangeName, pair, candle.timestamp, interval, candle)
+  const now = Date.now()
+
+  const closedCandles = candles.filter((candle) => {
+    const candleClosingTimestamp =
+      candle.timestamp + intervalInMilliseconds
+
+    return candleClosingTimestamp <= now
+  })
+
+  if (closedCandles.length === 0) {
+    await notifier.send(
+      `Aucune bougie clôturée trouvée pour le couple de devises ${pair} sur l'exchange ${exchangeName} avec l'interval ${interval}.`,
+    )
+    return
   }
 
+  for (const candle of closedCandles) {
+    await store.saveCandle(
+      exchangeName,
+      pair,
+      candle.timestamp,
+      interval,
+      candle,
+    )
+  }
+
+  const ignoredCandlesCount =
+    candles.length - closedCandles.length
+
   await notifier.send(
-    `Récupération des bougies pour le couple de devises ${pair} sur l'exchange ${exchangeName} avec l'interval ${interval} effectuée avec succès. Nombre de bougies récupérées : ${candles.length}.`,
+    `Récupération des bougies pour le couple de devises ${pair} sur l'exchange ${exchangeName} avec l'interval ${interval} effectuée avec succès. Bougies reçues : ${candles.length}, bougies clôturées enregistrées : ${closedCandles.length}, bougies ouvertes ignorées : ${ignoredCandlesCount}.`,
   )
 }
