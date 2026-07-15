@@ -4,7 +4,7 @@ import type { AppContext } from '../../core/AppContext.js'
 import { Pair } from '../../core/Pair.js'
 
 class FakeExchange implements Exchange {
-  private supportedPairs: Pair[] = [Pair.fromString('BTC/EUR'), Pair.fromString('ETH/EUR')]
+  private supportedPairs: Pair[] = [Pair.fromString('XTC/EUR'), Pair.fromString('ETH/EUR')]
   private app: AppContext
 
   constructor(app: AppContext) {

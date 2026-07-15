@@ -56,7 +56,7 @@ const plugin: BasePlugin = {
         const store = app.stores.get(storeName)
         const strategy = app.strategies.get(strategyName)
 
-        if (!exchange.isPairSupported(pair)) {
+        if (!(await exchange.isPairSupported(pair))) {
           throw new Error(
             `Le couple de devises ${pair} n'est pas supporté par l'exchange ${exchangeName}.`,
           )

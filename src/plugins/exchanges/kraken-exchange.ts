@@ -48,7 +48,7 @@ interface AssetsResponse {
 }
 
 class KrakenExchange implements Exchange {
-  private supportedPairs: Pair[] = [Pair.fromString('BTC/EUR'), Pair.fromString('ETH/EUR')]
+  private supportedPairs: Pair[] = [Pair.fromString('XBT/EUR'), Pair.fromString('ETH/EUR')]
   private app: AppContext
   private client: KrakenClient
 
@@ -108,12 +108,12 @@ class KrakenExchange implements Exchange {
   }
 
   async isPairSupported(pair: Pair): Promise<boolean> {
-    for (const supportedPair of this.supportedPairs) {
-      if (pair.equals(supportedPair)) {
-        return true
-      }
-    }
-    return false
+    const assetPairs = await this.getAssetPairs()
+    const entry = Object.entries(assetPairs).find(([, p]) => p.wsname === pair.toString())
+
+    console.log(entry)
+    
+    return entry !== undefined
   }
 
   async getFee(pair: Pair): Promise<number> {
