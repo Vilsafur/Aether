@@ -11,7 +11,7 @@ export class Config {
   private readonly configMap: Record<string, string | undefined> = {
     'plugin.exchange': 'fake',
     'plugin.notifier': 'console',
-    'plugin.strategy': 'always-buy',
+    'plugin.strategy': 'trend-following',
     'plugin.store': 'memory',
     'sqlite.path': './.data/db.sqlite3',
     'kraken.baseUrl': 'https://api.kraken.com',
