@@ -138,7 +138,7 @@ const plugin: BasePlugin = {
   setup(app) {
     const dbPath = app.config.get('sqlite.path')
     const notifier = app.notifiers.get('console')
-    notifier.send('Fermeture de la base de données SQLite...')
+    notifier.send(`Ouverture de la base de données : ${dbPath}`)
     app.stores.register('sqlite', new SQLiteStore(dbPath))
   },
 
