@@ -32,7 +32,7 @@ const plugin: BasePlugin = {
         const strategy = app.strategies.get(strategyName)
         const notifier = app.notifiers.get(notifierName)
 
-        if (!exchange.isPairSupported(pair)) {
+        if (!(await !exchange.isPairSupported(pair))) {
           throw new Error(
             `Le couple de devises ${pair} n'est pas supporté par l'exchange ${exchangeName}.`,
           )

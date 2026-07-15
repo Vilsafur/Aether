@@ -52,7 +52,7 @@ const plugin: BasePlugin = {
 
         const interval: Interval = '1m'
 
-        if (!exchange.isPairSupported(pair)) {
+        if (!(await exchange.isPairSupported(pair))) {
           throw new Error(
             `Le couple de devises ${pair} n'est pas supporté par l'exchange ${exchangeName}.`,
           )
