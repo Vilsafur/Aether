@@ -137,6 +137,7 @@ const plugin: BasePlugin = {
 
   setup(app) {
     const dbPath = app.config.get('sqlite.path')
+    console.log(`Ouverture de la base de données : ${dbPath}`)
     app.stores.register('sqlite', new SQLiteStore(dbPath))
   },
 
