@@ -84,8 +84,29 @@ class SQLiteStore implements Store {
     interval: Interval,
     candle: Candle,
   ): Promise<void> {
-    const stmt = this.db.prepare(
-      `INSERT OR IGNORE INTO candles (exchange, pair, interval, timestamp, open, high, low, close, volume, vwap) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    const stmt = this.db.prepare(`
+INSERT INTO candles (
+    exchange,
+    pair,
+    interval,
+    timestamp,
+    open,
+    high,
+    low,
+    close,
+    volume,
+    vwap
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+ON CONFLICT(exchange, pair, interval, timestamp)
+DO UPDATE SET
+    high   = excluded.high,
+    low    = excluded.low,
+    close  = excluded.close,
+    volume = excluded.volume,
+    vwap   = excluded.vwap;
+`,
     )
     stmt.run(
       exchange,
