@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx src/main.ts",
     "build": "tsc && npm run copy-assets",
-    "copy-assets": "mkdir -p dist/plugins/store/sqliteMigrations && cp src/plugins/store/sqliteMigrations/*.sql dist/plugins/store/sqliteMigrations/",
+    "copy-assets": "mkdir -p dist/src/plugins/store/sqliteMigrations && cp src/plugins/store/sqliteMigrations/*.sql dist/src/plugins/store/sqliteMigrations/",
     "start": "node dist/main.js",
     "typecheck": "tsc --noEmit",
     "biome:lint": "biome lint .",
