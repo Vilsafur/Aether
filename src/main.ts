@@ -5,6 +5,7 @@ import analyzeCommandPlugin from './plugins/commands/analyze-command.js'
 import checkStrategyCommandPlugin from './plugins/commands/check-strategy-command.js'
 import retrieveCandleCommandPlugin from './plugins/commands/retrieve-candles-command.js'
 import retrieveFeeCommandPlugin from './plugins/commands/retrieve-fees-command.js'
+import botCommandPlugin from './plugins/commands/bot-command.js'
 import fakeExchangePlugin from './plugins/exchanges/fake-exchange.js'
 import krakenExchangePlugin from './plugins/exchanges/kraken-exchange.js'
 import consoleNotifierPlugin from './plugins/notifiers/console-notifier.js'
@@ -27,6 +28,7 @@ const pluginManager = new PluginManager(app, {
     'scheduler:retrieve-candles-command',
     'scheduler:retrieve-fees-command',
     'scheduler:check-strategy-command',
+    'scheduler:bot-command',
   ],
 })
 
@@ -39,6 +41,7 @@ await pluginManager.load(analyzeCommandPlugin)
 await pluginManager.load(retrieveCandleCommandPlugin)
 await pluginManager.load(retrieveFeeCommandPlugin)
 await pluginManager.load(checkStrategyCommandPlugin)
+await pluginManager.load(botCommandPlugin)
 await pluginManager.load(alwaysBuyPlugin)
 await pluginManager.load(trendFollowingPlugin)
 
