@@ -9,7 +9,7 @@ CREATE TABLE candles (
   close REAL NOT NULL,
   volume REAL NOT NULL,
   vwap REAL NOT NULL,
-  PRIMARY KEY (pair, timestamp)
+  PRIMARY KEY (exchange, pair, interval, timestamp)
 );
 
 CREATE INDEX IF NOT EXISTS idx_candles_pair_timestamp
